@@ -1,8 +1,9 @@
-import { Product } from "./product.model"
+import { Product } from "./product.model";
 
-export const getAllProducts = (): Product[] => {
-    return [
-        { id: 1, name: "Laptop", price: 20 },
-        { id: 2, name: "Phone", price: 500 }
-    ]
-}
+export const createProduct = async (data: any) => {
+  return await Product.create(data);
+};
+
+export const getProducts = async () => {
+  return await Product.find();
+};

@@ -1,13 +1,21 @@
-import { Request, Response } from "express"
-import { getAllProducts } from "./product.service"
+import { Request, Response } from "express";
+import { createProduct, getProducts } from "./product.service";
 
-const getProduct = (req: Request, res: Response) => {
-    const products = getAllProducts();
+export const addProduct = async (req: Request, res: Response) => {
+  const product = await createProduct(req.body);
 
-    res.status(200).json({
-        success : true,
-        data : products
-    })
-}
+  res.status(201).json({
+    success: true,
+    data: product,
+  });
+};
 
-export default getProduct;
+// get all products
+export const getAllProducts = async (req: Request, res: Response) => {
+  const products = await getProducts();
+
+  res.status(200).json({
+    success: true,
+    data: products,
+  });
+};
