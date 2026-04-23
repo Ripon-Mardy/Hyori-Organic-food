@@ -5,6 +5,7 @@ import cors from "cors";
 import { connectDB } from "./config/db";
 
 import authRoutes from "./routes/auth.route";
+import { errorMiddleware } from "./middlewares/error.middleware";
 
 const app = express();
 app.use(express.json());
@@ -25,6 +26,9 @@ app.get("/api/health", (req, res) => {
 
 // routes
 app.use("/api/auth", authRoutes);
+
+// error middleware
+app.use(errorMiddleware);
 
 // start server
 const startServer = async () => {
