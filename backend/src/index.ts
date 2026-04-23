@@ -4,6 +4,8 @@ import { env } from "./config/env";
 import cors from "cors";
 import { connectDB } from "./config/db";
 
+import authRoutes from "./routes/auth.route";
+
 const app = express();
 app.use(express.json());
 app.use(
@@ -20,6 +22,9 @@ app.get("/api/health", (req, res) => {
     message: "API is Running 🚀",
   });
 });
+
+// routes
+app.use("/api/auth", authRoutes);
 
 // start server
 const startServer = async () => {
