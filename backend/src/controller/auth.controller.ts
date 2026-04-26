@@ -37,7 +37,7 @@ const sendTokenResponse = (user: any, statusCode: number, res: Response) => {
   res
     .status(statusCode)
     .cookie("token", token, cookieOptios as object)
-    .json(new ApiResponse(statusCode, "success", userResponse));
+    .json(new ApiResponse(statusCode, "Login Sucessfully", userResponse));
 };
 
 // register
@@ -76,4 +76,20 @@ export const login = asyncHandler(async (req: Request, res: Response) => {
   }
 
   sendTokenResponse(user, 200, res);
+});
+
+// logout
+export const logout = asyncHandler(async (req: Request, res: Response) => {
+  res
+    .cookie("token", "", {
+      httpOnly: true,
+      expires: new Date(0),
+    })
+    .json(new ApiResponse(200, "Logged out successfully"));
+});
+
+// get me
+export const getMe = asyncHandler(async (req: Request, res: Response) => {
+  const user = await UserModel.findById(req.user._id);
+  res.json(new ApiResponse(200, "user fetched", user));
 });
