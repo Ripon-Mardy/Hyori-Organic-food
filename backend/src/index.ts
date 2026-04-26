@@ -5,6 +5,7 @@ import cors from "cors";
 import { connectDB } from "./config/db";
 
 import authRoutes from "./routes/auth.route";
+import categoryRoutes from "./routes/category.route";
 import { errorMiddleware } from "./middlewares/error.middleware";
 
 const app = express();
@@ -16,6 +17,8 @@ app.use(
   }),
 );
 
+app.use("/uploads", express.static("uploads"));
+
 // Health check
 app.get("/api/health", (req, res) => {
   res.status(200).json({
@@ -26,6 +29,7 @@ app.get("/api/health", (req, res) => {
 
 // routes
 app.use("/api/auth", authRoutes);
+app.use("/api/categories", categoryRoutes);
 
 // error middleware
 app.use(errorMiddleware);

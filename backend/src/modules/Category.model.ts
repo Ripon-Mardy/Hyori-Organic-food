@@ -1,5 +1,4 @@
 import mongoose, { Document, Schema } from "mongoose";
-import slugify from "slugify";
 
 export interface ICategory extends Document<Object> {
   _id: string;
@@ -19,17 +18,6 @@ const categoryShema = new Schema<ICategory>(
       required: true,
       trim: true,
     },
-    slug: {
-      type: String,
-      required: true,
-      unique: true,
-      lowercase: true,
-    },
-    parent: {
-      type: Schema.Types.ObjectId,
-      ref: "Category",
-      required: true,
-    },
     image: {
       type: String,
       default: "",
@@ -42,11 +30,4 @@ const categoryShema = new Schema<ICategory>(
   { timestamps: true },
 );
 
-// auto generate slug
-categoryShema.pre("save", function () {
-  if (!this.slug) {
-    this.slug = slugify(this.name, { lower: true });
-  }
-});
-
-export default mongoose.model<ICategory>("Catgory", categoryShema);
+export default mongoose.model<ICategory>("Category", categoryShema);
