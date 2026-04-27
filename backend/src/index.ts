@@ -17,7 +17,7 @@ app.use(
   }),
 );
 
-app.use("/uploads", express.static("uploads"));
+app.use("/public", express.static("public"));
 
 // Health check
 app.get("/api/health", (req, res) => {

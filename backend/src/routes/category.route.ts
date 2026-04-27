@@ -9,6 +9,7 @@ import {
 
 const router = Router();
 
+// routes
 router.post("/", upload.single("image"), createCategory);
 router.get("/", getAllCategory);
 router.get("/:id", getSingleCategory);

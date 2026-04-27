@@ -10,22 +10,29 @@ export const createCategory = asyncHandler(
     const { name } = req.body;
 
     if (!name) {
-      throw new ApiError(400, "Category name is Required");
+      throw new ApiError(400, "Name field is required");
     }
 
-    const exists = await CategoryModel.findOne({ name });
-    if (exists) {
-      throw new ApiError(400, "Category already exists");
+    // category exists
+    const catExists = await CategoryModel.findOne({ name });
+    if (catExists) {
+      throw new ApiError(409, "Category already exist");
     }
 
-    // get image path
+    // image
+    let image = "";
+    if (req.file) {
+      image = `/uploads/${req.file.filename}`;
+    } else {
+      throw new ApiError(400, "Image is required");
+    }
 
-    // create
     const category = await CategoryModel.create({
       name,
+      image,
     });
 
-    res.status(201).json(new ApiResponse(201, "Category Created", category));
+    res.status(200).json(new ApiResponse(200, "Category created", category));
   },
 );
 
@@ -41,11 +48,16 @@ export const getAllCategory = asyncHandler(
 // get single category
 export const getSingleCategory = asyncHandler(
   async (req: Request, res: Response) => {
-    const categoryId = await CategoryModel.findById(req.params.id);
+    const { id } = req.params;
 
-    // if catgory not found
-    if (!categoryId) {
+    const category = await CategoryModel.findById(id);
+
+    if (!category) {
       throw new ApiError(400, "Category not found");
     }
+
+    res
+      .status(200)
+      .json(new ApiResponse(200, "Category fetched successfully", category));
   },
 );
