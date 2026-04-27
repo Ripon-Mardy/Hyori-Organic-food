@@ -18,7 +18,6 @@ const categoryShema = new Schema<ICategory>(
     },
     image: {
       type: String,
-      required: true,
       default: "",
     },
     isActive: {

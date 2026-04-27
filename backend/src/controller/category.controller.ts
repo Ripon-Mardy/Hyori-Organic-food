@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+
 import { asyncHandler } from "../utils/AsyncHandler";
 import { ApiError } from "../utils/ApiError";
 import CategoryModel from "../modules/Category.model";
@@ -10,7 +11,7 @@ export const createCategory = asyncHandler(
     const { name } = req.body;
 
     if (!name) {
-      throw new ApiError(400, "Name field is required");
+      throw new ApiError(400, "Name Field is required");
     }
 
     // category exists
@@ -23,8 +24,6 @@ export const createCategory = asyncHandler(
     let image = "";
     if (req.file) {
       image = `/uploads/${req.file.filename}`;
-    } else {
-      throw new ApiError(400, "Image is required");
     }
 
     const category = await CategoryModel.create({
@@ -59,5 +58,39 @@ export const getSingleCategory = asyncHandler(
     res
       .status(200)
       .json(new ApiResponse(200, "Category fetched successfully", category));
+  },
+);
+
+// update category
+export const updateCategory = asyncHandler(
+  async (req: Request, res: Response) => {
+    const category = await CategoryModel.findOneAndUpdate(
+      { _id: req.params.id },
+      req.body,
+      { new: true },
+    );
+
+    if (!category) {
+      throw new ApiError(400, "Category not found");
+    }
+
+    res.status(200).json(new ApiResponse(200, "Category updated", category));
+  },
+);
+
+// delete category
+export const deleteCategory = asyncHandler(
+  async (req: Request, res: Response) => {
+    const category = await CategoryModel.findByIdAndDelete({
+      _id: req.params.id,
+    });
+
+    if (!category) {
+      throw new ApiError(400, "Category not found");
+    }
+
+    res
+      .status(200)
+      .json(new ApiResponse(200, "Category Delete Succssfully", null));
   },
 );
