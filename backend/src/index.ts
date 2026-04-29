@@ -7,8 +7,10 @@ import { connectDB } from "./config/db";
 import authRoutes from "./routes/auth.route";
 import categoryRoutes from "./routes/category.route";
 import menuRoutes from "./routes/menu.route";
+import bannerRoutes from "./routes/banner.route";
 
 import { errorMiddleware } from "./middlewares/error.middleware";
+import path from "node:path";
 
 const app = express();
 app.use(express.json());
@@ -33,6 +35,10 @@ app.get("/api/health", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/menu", menuRoutes);
+app.use("/api/banner", bannerRoutes);
+
+// image upload
+app.use("/uploads", express.static(path.join(__dirname, "../public/uploads")));
 
 // error middleware
 app.use(errorMiddleware);
