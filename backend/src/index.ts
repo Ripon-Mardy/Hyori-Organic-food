@@ -6,6 +6,8 @@ import { connectDB } from "./config/db";
 
 import authRoutes from "./routes/auth.route";
 import categoryRoutes from "./routes/category.route";
+import menuRoutes from "./routes/menu.route";
+
 import { errorMiddleware } from "./middlewares/error.middleware";
 
 const app = express();
@@ -30,6 +32,7 @@ app.get("/api/health", (req, res) => {
 // routes
 app.use("/api/auth", authRoutes);
 app.use("/api/categories", categoryRoutes);
+app.use("/api/menu", menuRoutes);
 
 // error middleware
 app.use(errorMiddleware);
