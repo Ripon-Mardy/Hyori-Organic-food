@@ -9,7 +9,7 @@ export const createMenu = asyncHandler(async (req: Request, res: Response) => {
   const { name, path } = req.body;
 
   if (!name || !path) {
-    throw new ApiError(400, "Name & path is required");
+    throw new ApiError(400, "Name & Path is required");
   }
 
   //   menu exist
