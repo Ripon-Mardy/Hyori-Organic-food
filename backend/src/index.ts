@@ -10,7 +10,7 @@ import menuRoutes from "./routes/menu.route";
 import bannerRoutes from "./routes/banner.route";
 
 import { errorMiddleware } from "./middlewares/error.middleware";
-import path from "node:path";
+import path from "path";
 
 const app = express();
 app.use(express.json());
