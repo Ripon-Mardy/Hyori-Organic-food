@@ -43,7 +43,7 @@ const categoryShema = new Schema<ICategory>(
 );
 
 // ===== auto slug ===== 
-categoryShema.pre('save', function() {
+categoryShema.pre("save", function() {
   if(!this.slug) {
     this.slug = slugify(this.name, {lower: true})
   }
