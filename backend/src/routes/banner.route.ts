@@ -1,9 +1,9 @@
 import { Router } from "express";
 import { createBanner } from "../controller/banner.controller";
-import { uploadBanner } from "../middlewares/upload.middleware";
+import { upload } from "../middlewares/upload";
 
 const router = Router();
 
-router.post("/", uploadBanner.single("image"), createBanner);
+router.post("/", upload('banners').single('image'), createBanner);
 
 export default router;

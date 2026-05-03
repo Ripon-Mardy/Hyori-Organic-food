@@ -5,30 +5,41 @@ import { ApiError } from "../utils/ApiError";
 import CategoryModel from "../modules/Category.model";
 import { ApiResponse } from "../utils/ApiResponse";
 
+import fs from 'fs'
+import path from 'path'
+
 // create category
 export const createCategory = asyncHandler(
   async (req: Request, res: Response) => {
-    const { name } = req.body;
+    const { name, parent } = req.body;
 
     if (!name) {
       throw new ApiError(400, "Name Field is required");
     }
 
-    // category exists
-    const catExists = await CategoryModel.findOne({ name });
-    if (catExists) {
-      throw new ApiError(409, "Category already exist");
+    if(!req.file) {
+      throw new ApiError(400, 'Image is required');
     }
 
-    // image
-    let image = "";
-    if (req.file) {
-      image = `/uploads/${req.file.filename}`;
+
+    const filePath = path.join('uploads', 'categories', req.file.filename);
+
+    // check duplicate 
+    const exist = await CategoryModel.findOne({name});
+    if(exist) {
+      if(fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath)
+      }
+
+      throw new ApiError(409, 'Category already exist');
     }
+    
+    const imagePath = `/uploads/categories/${req.file.filename}`
 
     const category = await CategoryModel.create({
       name,
-      image,
+      image : imagePath,
+      parent: parent || null
     });
 
     res.status(200).json(new ApiResponse(200, "Category created", category));

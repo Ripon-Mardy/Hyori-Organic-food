@@ -3,7 +3,6 @@ import mongoose, { Document, Schema } from "mongoose";
 export interface IBanner extends Document {
   name: string;
   image: string;
-  link?: string;
   isActive: boolean;
   createdAt: Date;
   updatedAt: Date;
@@ -16,9 +15,6 @@ const bannerSchema = new Schema(
       required: true,
     },
     image: {
-      type: String,
-    },
-    link: {
       type: String,
     },
     isActive: {

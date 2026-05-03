@@ -10,7 +10,7 @@ import path from "path";
 // create banner
 export const createBanner = asyncHandler(
   async (req: Request, res: Response) => {
-    const { name, link } = req.body;
+    const { name } = req.body;
 
     // if no image
     if (!req.file) {
@@ -38,7 +38,6 @@ export const createBanner = asyncHandler(
 
     const banner = await bannerModel.create({
       name,
-      link,
       image: imagePath,
     });
 
