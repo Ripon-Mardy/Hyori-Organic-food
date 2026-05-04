@@ -8,11 +8,13 @@ import authRoutes from "./routes/auth.route";
 import categoryRoutes from "./routes/category.route";
 import menuRoutes from "./routes/menu.route";
 import bannerRoutes from "./routes/banner.route";
+import productRoutes from './routes/product.route'
 
 import { errorMiddleware } from "./middlewares/error.middleware";
 import path from "path";
 
 const app = express();
+
 app.use(express.json());
 app.use(
   cors({
@@ -36,6 +38,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/menu", menuRoutes);
 app.use("/api/banner", bannerRoutes);
+app.use('/api/products', productRoutes)
 
 // image upload
 app.use("/uploads", express.static(path.join(__dirname, "../public/uploads")));
