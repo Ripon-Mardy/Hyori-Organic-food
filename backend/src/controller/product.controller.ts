@@ -7,19 +7,19 @@ import { ApiResponse } from "../utils/ApiResponse";
 
 // ============= create product =========== 
 export const createProduct = asyncHandler(async (req: Request, res: Response) => {
-    const { name, price, category } = req.body;
+    const { name, price, stock, description, category } = req.body;
 
     if (!name || !price || !category) {
-        throw new ApiError(404, 'Required fields missing')
+        throw new ApiError(404, 'Missing required Field')
     }
 
     // ======== create product ============ 
     const product = await Product.create({
         name,
         price,
+        stock,
         category
     })
-
 
     res.status(200).json(new ApiResponse(200, 'Created product', product))
 
