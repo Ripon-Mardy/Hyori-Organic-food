@@ -18,7 +18,7 @@ export const createBanner = asyncHandler(
     }
 
     if (!name) {
-      throw new ApiError(404, "Name & Link is required");
+      throw new ApiError(404, "Name is required");
     }
 
     // exist Banner name
