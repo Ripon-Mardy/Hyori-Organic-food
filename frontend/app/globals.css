@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+:root {
+  /* container width  */
+  --container-width : 1200px;
+
+  /* text color  */
+  --text-color: #424242;
+  --bg-color: #56BB3E;
+  --text-green : #56BB3E;
+  --menu-text-color: #044313;
+
+
+  /* text hover  */
+  --bg-hover-color: #3F8F2D;
+}

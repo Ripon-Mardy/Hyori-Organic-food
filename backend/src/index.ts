@@ -1,0 +1,58 @@
+import "dotenv/config";
+import express from "express";
+import { env } from "./config/env";
+import cors from "cors";
+import { connectDB } from "./config/db";
+
+import authRoutes from "./routes/auth.route";
+import categoryRoutes from "./routes/category.route";
+import menuRoutes from "./routes/menu.route";
+import bannerRoutes from "./routes/banner.route";
+import productRoutes from './routes/product.route'
+
+import { errorMiddleware } from "./middlewares/error.middleware";
+import path from "path";
+
+const app = express();
+
+app.use(express.json());
+app.use(
+  cors({
+    origin: env.clientUrl,
+    credentials: true,
+  }),
+);
+
+app.use("/public", express.static("public"));
+
+// Health check
+app.get("/api/health", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "API is Running 🚀",
+  });
+});
+
+// routes
+app.use("/api/auth", authRoutes);
+app.use("/api/categories", categoryRoutes);
+app.use("/api/menu", menuRoutes);
+app.use("/api/banner", bannerRoutes);
+app.use('/api/products', productRoutes)
+
+// image upload
+app.use("/uploads", express.static(path.join(__dirname, "../public/uploads")));
+
+// error middleware
+app.use(errorMiddleware);
+
+// start server
+const startServer = async () => {
+  await connectDB();
+
+  app.listen(env.port, () => {
+    console.log(`server is running port ${env.port}`);
+  });
+};
+
+startServer();
