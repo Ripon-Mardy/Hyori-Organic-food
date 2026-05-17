@@ -1,6 +1,8 @@
 "use client";
 
 import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
+
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -31,16 +33,22 @@ const banners = [
 ];
 
 const BannerSlider = () => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    loop: true,
+  const autoplay = Autoplay({
+    delay: 4000,
+    stopOnInteraction: false,
   });
 
-  // next slide
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    {
+      loop: true,
+    },
+    [autoplay],
+  );
+
   const scrollNext = () => {
     emblaApi?.scrollNext();
   };
 
-  // previous slide
   const scrollPrev = () => {
     emblaApi?.scrollPrev();
   };
@@ -53,7 +61,7 @@ const BannerSlider = () => {
           {banners.map((banner) => (
             <div
               key={banner.id}
-              className="relative min-w-full h-[300px] sm:h-[400px] lg:h-[550px]"
+              className="relative min-w-full h-75 sm:h-100 lg:h-137.5"
             >
               {/* background image */}
               <Image
@@ -72,7 +80,7 @@ const BannerSlider = () => {
                 <div className="max-w-(--container-width) mx-auto h-full">
                   <div className="flex items-center justify-between h-full">
                     {/* left content */}
-                    <div className="max-w-xl text-white space-y-4 md:space-y-6 animate-fade-up">
+                    <div className="max-w-xl text-white space-y-4 md:space-y-6">
                       <span className="inline-block text-xs sm:text-sm uppercase tracking-[4px] text-green-300 font-medium">
                         Organic & Fresh
                       </span>
@@ -91,7 +99,7 @@ const BannerSlider = () => {
                     </div>
 
                     {/* right image */}
-                    <div className="hidden lg:block animate-float">
+                    <div className="hidden lg:block">
                       <Image
                         src={banner.contentImage}
                         width={450}
