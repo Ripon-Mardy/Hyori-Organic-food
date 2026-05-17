@@ -77,7 +77,7 @@ const BannerSlider = () => {
 
               {/* content container */}
               <div className="absolute inset-0 z-20">
-                <div className="max-w-(--container-width) mx-auto h-full">
+                <div className="max-w-(--container-width) mx-auto h-full px-2">
                   <div className="flex items-center justify-between h-full">
                     {/* left content */}
                     <div className="max-w-xl text-white space-y-4 md:space-y-6">
