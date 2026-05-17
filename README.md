@@ -47,3 +47,16 @@ frontend/
 backend/
 admin/
 ```
+
+# 🔑 Environment Variables
+
+Create a `.env` file in backend folder:
+
+```env
+PORT=5000
+MONGO_URI=mongodb://127.0.0.1:27017/hyori-ecommerce
+JWT_SECRET=3f64rf434rf56f5f3w56rwfw3rw5
+JWT_EXPIRES_IN=7d
+CLIENT_URL=http://localhost:5000
+NODE_ENV=development
+```
