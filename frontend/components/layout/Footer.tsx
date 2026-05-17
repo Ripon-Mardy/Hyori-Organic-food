@@ -83,8 +83,8 @@ const Footer = () => {
                 placeholder="Enter your email"
                 required
               />
-              <span className="bg-(--bg-color) p-2 rounded-full">
-                <Send className="w-5 h-5 " />
+              <span className="bg-(--bg-color) p-2 rounded-full cursor-pointer">
+                <Send className="w-4 h-4 " />
               </span>
             </div>
             {/* social media icons */}
