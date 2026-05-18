@@ -9,6 +9,7 @@
   --bg-color: #56BB3E;
   --text-green : #56BB3E;
   --menu-text-color: #044313;
+  --heading-color: #044313;
 
 
   /* text hover  */
@@ -20,6 +21,7 @@
   background-image: url('../public/best-seller/bg-bestseller.jpg') ;
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
 }
 
 
