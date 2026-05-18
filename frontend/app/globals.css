@@ -15,7 +15,15 @@
   --bg-hover-color: #3F8F2D;
 }
 
+/* --------------- best seller backgroun --------------  */
+.best-seller-bg {
+  background-image: url('../public/best-seller/bg-bestseller.jpg') ;
+  background-size: cover;
+  background-position: center;
+}
 
+
+/* ----------- for carousel ----------- */
 .embla__viewport {
   overflow: hidden;
 }
