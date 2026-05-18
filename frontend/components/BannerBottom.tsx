@@ -64,11 +64,11 @@ const BannerBottom = () => {
                 {/* content */}
                 <div className="absolute inset-0 z-20 flex items-center">
                   <div className="px-6 md:px-8 max-w-sm space-y-3">
-                    <h2 className="text-xl font-bold leading-tight">
+                    <h2 className="text-xl text-(--heading-color) font-bold leading-tight">
                       {banner.title}
                     </h2>
 
-                    <p className="text-base font-medium">
+                    <p className="text-base font-medium text-(--text-color)">
                       {banner.description}
                     </p>
 

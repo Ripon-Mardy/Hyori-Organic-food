@@ -106,7 +106,7 @@ const BestSeller = () => {
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 items-center justify-center gap-4 w-full">
+            <div className="grid grid-cols-1 sm:grid-cols-2 items-center justify-center gap-4 sm:gap-6 w-full">
               {bestSellerData?.map((item) => (
                 <div
                   key={item.id}
