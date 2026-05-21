@@ -37,7 +37,7 @@ const BannerBottom = () => {
   return (
     <section className="py-16">
       <div className="max-w-(--container-width) mx-auto px-2">
-        <div className="grid grid-cols-1 md:grid-cols-7 gap-4 sm:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-7 gap-5 sm:gap-8">
           {banners.map((banner, index) => {
             // 1st & 4th image = 40%
             // 2nd & 3rd image = 60%
