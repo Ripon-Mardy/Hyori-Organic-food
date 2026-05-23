@@ -50,7 +50,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         <Image
           src={product.image}
           alt={product.name}
-          className="h-65 w-full object-cover transition duration-500 group-hover:scale-110"
+          className="h-32 sm:h-65 w-full object-cover transition duration-500 group-hover:scale-110"
         />
 
         {/* overlay */}
@@ -58,9 +58,9 @@ export default function ProductCard({ product }: ProductCardProps) {
       </div>
 
       {/* ===== CONTENT ===== */}
-      <div className="space-y-4 p-5">
+      <div className="space-y-2 p-5">
         {/* category */}
-        <span className="text-sm font-medium text-green-600">
+        <span className="text-xs font-medium text-green-600">
           {product.category}
         </span>
 
@@ -91,7 +91,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           <span>Sold: {product.sold}</span>
 
           {product.isStock ? (
-            <span className="font-medium text-green-600">
+            <span className="font-medium text-sm text-green-600">
               In Stock ({product.stock})
             </span>
           ) : (
@@ -101,12 +101,12 @@ export default function ProductCard({ product }: ProductCardProps) {
 
         {/* price */}
         <div className="flex items-end gap-3">
-          <span className="text-2xl font-bold text-gray-900">
+          <span className="text-base font-bold text-gray-900">
             ৳{product.discountPrice}
           </span>
 
           {product.discountPrice && (
-            <span className="text-base text-gray-400 line-through">
+            <span className="text-sm text-gray-400 line-through">
               ৳{product.price}
             </span>
           )}
@@ -115,7 +115,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         {/* button */}
         <button
           disabled={!product.isStock}
-          className={`flex w-full items-center justify-center gap-2 rounded-xl py-3 text-sm font-semibold transition-all duration-300 ${
+          className={`flex w-full items-center justify-center gap-2 rounded-xl py-3 text-xs font-semibold transition-all duration-300 cursor-pointer ${
             product.isStock
               ? "bg-green-600 text-white hover:bg-green-700"
               : "cursor-not-allowed bg-gray-200 text-gray-500"
