@@ -1,40 +1,10 @@
 import Image from "next/image";
 
-// images
-import productCategory1 from "@/public/category/icon-tabs-01.webp";
-import productCategory2 from "@/public/category/icon-tabs-02.webp";
-import productCategory3 from "@/public/category/icon-tabs-03.webp";
-import productCategory4 from "@/public/category/icon-tabs-04.webp";
-import productCategory5 from "@/public/category/icon-tabs-05.webp";
+import { productCategories } from "@/src/data/ProductCategories";
 
-// products category list
-const productscategories = [
-  {
-    id: 1,
-    name: "Fruits",
-    image: productCategory1,
-  },
-  {
-    id: 2,
-    name: "Butter & Eggs",
-    image: productCategory2,
-  },
-  {
-    id: 3,
-    name: "Vegetables",
-    image: productCategory3,
-  },
-  {
-    id: 4,
-    name: "Milk & Cream",
-    image: productCategory4,
-  },
-  {
-    id: 5,
-    name: "Meats",
-    image: productCategory5,
-  },
-];
+import { products } from "@/src/data/Product";
+
+import ProductCard from "@/components/ProductCard";
 
 const Products = () => {
   return (
@@ -52,7 +22,7 @@ const Products = () => {
 
         {/* ----- products grid -----  */}
         <div className="flex items-center justify-center flex-wrap gap-10 mt-10">
-          {productscategories?.map((cate) => (
+          {productCategories?.map((cate) => (
             <div
               key={cate?.id}
               className="flex flex-col items-center gap-2 cursor-pointer group"
@@ -70,6 +40,13 @@ const Products = () => {
                 {cate?.name}
               </span>
             </div>
+          ))}
+        </div>
+
+        {/* --- products ---------  */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-10">
+          {products?.map((product) => (
+            <ProductCard key={product?.id} product={product} />
           ))}
         </div>
       </div>
