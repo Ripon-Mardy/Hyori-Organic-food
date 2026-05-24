@@ -25,8 +25,35 @@
 }
 
 
+/* ------- product bottom bg ----------------  */
+.product-bottom-bg{
+  background: url('../public/Productbottom/bg-service.jpg') center center no-repeat;
+}
+
+.product-animation {
+  animation: float 1s ease-in-out infinite  ;
+}
+
+@keyframes float {
+  0%{
+    transform: translateY(0px);
+  }
+
+  50%{
+    transform: translateY(-15px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.product-card:hover .product-image{
+  animation: float 1.5s ease-in-out infinite;
+}
+
 /* ----------- for carousel ----------- */
-.embla__viewport {
+/* .embla__viewport {
   overflow: hidden;
 }
 
@@ -38,4 +65,4 @@
 .embla__slide {
   flex: 0 0 100%;
   min-width: 0;
-}
+} */

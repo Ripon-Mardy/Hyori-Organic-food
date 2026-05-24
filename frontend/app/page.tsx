@@ -1,7 +1,8 @@
-import BannerBottom from "@/components/BannerBottom";
-import BannerSlider from "@/components/BannerSlider";
-import BestSeller from "@/components/BestSeller";
-import Products from "@/components/Products";
+import BannerBottom from "@/components/sections/BannerBottom";
+import BannerSlider from "@/components/sections/BannerSlider";
+import BestSeller from "@/components/sections/BestSeller";
+import ProductBottom from "@/components/sections/ProductBottom";
+import Products from "@/components/sections/Products";
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <BannerBottom />
       <BestSeller />
       <Products />
+      <ProductBottom />
     </>
   );
 }
