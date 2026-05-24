@@ -17,12 +17,11 @@ const Products = () => {
     (product) => product.category === activeCategory,
   );
 
-  console.log("filterdProducts", filterdProducts);
-
   // -------- handle product click ----------
   const handleProductClick = (product: any) => {
     setActiveCategory(product);
   };
+
   return (
     <section>
       <div className="max-w-(--container-width) mx-auto px-2 py-16">
