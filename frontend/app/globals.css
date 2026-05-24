@@ -16,6 +16,11 @@
   --bg-hover-color: #3F8F2D;
 }
 
+/* body {
+  overflow-x: hidden;
+  overflow-x: auto;
+} */
+
 /* --------------- best seller backgroun --------------  */
 .best-seller-bg {
   background-image: url('../public/best-seller/bg-bestseller.jpg') ;

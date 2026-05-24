@@ -106,13 +106,13 @@ const BestSeller = () => {
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 items-center justify-center gap-4 sm:gap-6 w-full">
+            <div className="grid grid-cols-2 sm:grid-cols-2 items-center justify-center gap-2 sm:gap-6 w-full">
               {bestSellerData?.map((item) => (
                 <div
                   key={item.id}
-                  className="bg-white p-4 rounded-md flex items-center border border-gray-200 gap-2 w-full hover:border hover:border-(--text-green) transition-colors duration-150 cursor-pointer"
+                  className="bg-white p-2 sm:p-4 rounded-md flex items-center border border-gray-200 gap-2 w-full hover:border hover:border-(--text-green) transition-colors duration-150 cursor-pointer"
                 >
-                  <div className="w-20 h-20 rounded-md overflow-hidden ">
+                  <div className="w-12 sm:w-20 h-12 sm:h-20 rounded-md overflow-hidden ">
                     <Image
                       src={item.image}
                       width={30}
