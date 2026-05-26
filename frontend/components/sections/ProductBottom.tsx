@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+// images
 import productBottom1 from "@/public/Productbottom/icon-01-1.webp";
 import productBottom2 from "@/public/Productbottom/icon-02-1.webp";
 import productBottom3 from "@/public/Productbottom/icon-03-1.webp";
