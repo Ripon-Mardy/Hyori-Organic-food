@@ -128,7 +128,7 @@ const BestSeller = () => {
                       {item.name}
                     </h2>
                     {/* rating  */}
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-3">
                       {/* stars */}
                       <div className="flex items-center">
                         {[...Array(5)].map((_, index) => (
