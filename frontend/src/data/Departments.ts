@@ -1,0 +1,76 @@
+import {
+  Lock,
+  Heart,
+  Handbag,
+  Menu,
+  X,
+  Search,
+  Headset,
+  ChevronDown,
+  Salad,
+  Ham,
+  Vegan,
+  Apple,
+  Ship,
+  Egg,
+  Hamburger,
+  IceCreamBowl,
+  Banana,
+} from "lucide-react";
+
+export const departments = [
+  {
+    id: 1,
+    name: "Vegetables",
+    link: "/vegetables",
+    icon: Salad,
+  },
+  {
+    id: 2,
+    name: "Fresh Meat",
+    link: "/fresh-meat",
+    icon: Ham,
+  },
+  {
+    id: 3,
+    name: "Fruit & Nut Gifts",
+    link: "fruit-nut-gifts",
+    icon: Vegan,
+  },
+  {
+    id: 4,
+    name: "Fresh Berries",
+    link: "fresh-berries",
+    icon: Apple,
+  },
+  {
+    id: 5,
+    name: "Ocean Foods",
+    link: "ocean-foods",
+    icon: Ship,
+  },
+  {
+    id: 6,
+    name: "Butter & Eggs",
+    link: "butter-eggs",
+    icon: Egg,
+  },
+  {
+    id: 7,
+    name: "Fastfood",
+    link: "fastfood",
+    icon: Hamburger,
+  },
+  {
+    id: 8,
+    name: "Fresh Onion",
+    link: "fresh-onion",
+    icon: IceCreamBowl,
+  },
+  {
+    id: 9,
+    name: "Fresh Bananas",
+    link: "fresh-bananas",
+    icon: Banana,
+  },
+];

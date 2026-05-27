@@ -1,4 +1,6 @@
 "use client";
+
+import { useRef, useState } from "react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion, AnimatePresence } from "motion/react";
@@ -6,6 +8,11 @@ import { motion, AnimatePresence } from "motion/react";
 import Link from "next/link";
 
 import { useOutsideClick } from "@/hooks/useOutsideClick";
+
+// ----------- category data
+import { productCategories } from "@/src/data/ProductCategories";
+// ------------ departments data
+import { departments } from "@/src/data/Departments";
 
 // image
 import logo from "@/public/logo.png";
@@ -37,7 +44,6 @@ import {
   IceCreamBowl,
   Banana,
 } from "lucide-react";
-import { useRef, useState } from "react";
 
 // menus
 const menus = [
@@ -69,62 +75,6 @@ const menus = [
 ];
 
 // departments
-const departments = [
-  {
-    id: 1,
-    name: "Vegetables",
-    link: "/vegetables",
-    icon: <Salad className="w-5 h-5" />,
-  },
-  {
-    id: 2,
-    name: "Fresh Meat",
-    link: "/fresh-meat",
-    icon: <Ham className="w-5 h-5" />,
-  },
-  {
-    id: 3,
-    name: "Fruit & Nut Gifts",
-    link: "fruit-nut-gifts",
-    icon: <Vegan className="w-5 h-5" />,
-  },
-  {
-    id: 4,
-    name: "Fresh Berries",
-    link: "fresh-berries",
-    icon: <Apple className="w-5 h-5" />,
-  },
-  {
-    id: 5,
-    name: "Ocean Foods",
-    link: "ocean-foods",
-    icon: <Ship className="w-5 h-5" />,
-  },
-  {
-    id: 6,
-    name: "Butter & Eggs",
-    link: "butter-eggs",
-    icon: <Egg className="w-5 h-5" />,
-  },
-  {
-    id: 7,
-    name: "Fastfood",
-    link: "fastfood",
-    icon: <Hamburger className="w-5 h-5" />,
-  },
-  {
-    id: 8,
-    name: "Fresh Onion",
-    link: "fresh-onion",
-    icon: <IceCreamBowl className="w-5 h-5" />,
-  },
-  {
-    id: 9,
-    name: "Fresh Bananas",
-    link: "fresh-bananas",
-    icon: <Banana className="w-5 h-5" />,
-  },
-];
 
 const Header = () => {
   const [showCategoryPopup, setShowCategoryPopup] = useState(false);
@@ -148,7 +98,7 @@ const Header = () => {
           <Image src={logo} width={100} height={100} alt="logo" />
         </div>
 
-        {/* ======= search area =========  */}
+        {/* ======= search category  =========  */}
         <div
           ref={dropdownRef}
           className="relative flex items-center gap-5 border border-gray-200 rounded-2xl w-full max-w-2xl"
@@ -170,25 +120,21 @@ const Header = () => {
 
             {/* category popup  */}
             {showCategoryPopup && (
-              <div className="absolute left-0 top-full bg-white border border-gray-200 p-2 space-y-1">
+              <div className="absolute left-0 top-full bg-white border border-gray-200 p-2 space-y-1 z-50">
                 <input
                   type="text"
                   className="w-full border border-gray-300 rounded text-sm outline-none text-(--text-color) py-1 px-2"
                   placeholder="search category..."
                 />
                 <div className="flex flex-col gap-2 text-(--text-color)">
-                  <span className="hover:bg-(--bg-hover-color) hover:text-white rounded pl-2 text-sm py-2 transition-all duration-100">
-                    Food
-                  </span>
-                  <span className="hover:bg-(--bg-hover-color) hover:text-white rounded pl-2 text-sm py-2 transition-all duration-100">
-                    Food
-                  </span>
-                  <span className="hover:bg-(--bg-hover-color) hover:text-white rounded pl-2 text-sm py-2 transition-all duration-100">
-                    Food
-                  </span>
-                  <span className="hover:bg-(--bg-hover-color) hover:text-white rounded pl-2 text-sm py-2 transition-all duration-100">
-                    Food
-                  </span>
+                  {productCategories.map((cate) => (
+                    <span
+                      key={cate?.id}
+                      className="hover:bg-(--bg-hover-color) hover:text-white rounded pl-2 text-sm py-2 transition-all duration-100"
+                    >
+                      {cate?.name}
+                    </span>
+                  ))}
                 </div>
               </div>
             )}
@@ -394,16 +340,19 @@ const Header = () => {
                   className="absolute left-0 top-full bg-white border border-gray-200 rounded-b-xl py-3 w-full p-3 overflow-hidden shadow z-50"
                 >
                   <div className="space-y-1">
-                    {departments.map((name, index) => (
-                      <Link
-                        key={index}
-                        href="#"
-                        className="flex items-center gap-2 text-sm text-(--menu-text-color) hover:text-(--text-green) transition-all duration-150 border-b border-gray-200 last:border-b-0 py-2"
-                      >
-                        <span>{name.icon}</span>
-                        <span>{name.name}</span>
-                      </Link>
-                    ))}
+                    {departments.map((department, index) => {
+                      const Icon = department.icon;
+                      return (
+                        <Link
+                          key={index}
+                          href="#"
+                          className="flex items-center gap-2 text-sm text-(--menu-text-color) hover:text-(--text-green) transition-all duration-150 border-b border-gray-200 last:border-b-0 py-2"
+                        >
+                          <Icon className="w-4 h-4" />
+                          <span>{department.name}</span>
+                        </Link>
+                      );
+                    })}
                   </div>
                 </motion.div>
               )}
