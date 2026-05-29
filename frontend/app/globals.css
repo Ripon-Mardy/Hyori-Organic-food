@@ -16,11 +16,6 @@
   --bg-hover-color: #3F8F2D;
 }
 
-/* body {
-  overflow-x: hidden;
-  overflow-x: auto;
-} */
-
 /* --------------- best seller backgroun --------------  */
 .best-seller-bg {
   background-image: url('../public/best-seller/bg-bestseller.jpg') ;
@@ -57,17 +52,10 @@
   animation: float 1.5s ease-in-out infinite;
 }
 
-/* ----------- for carousel ----------- */
-/* .embla__viewport {
-  overflow: hidden;
-}
 
-.embla__container {
-  display: flex;
-  touch-action: pan-y pinch-zoom;
-}
 
-.embla__slide {
-  flex: 0 0 100%;
-  min-width: 0;
-} */
+
+/* ------------ shop page breadcurm banner -----------  */
+.shop-breadcrum-banner {
+  background: url('../public/bg-breadcrum.jpg') center center no-repeat;
+}
