@@ -13,6 +13,8 @@ import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { productCategories } from "@/src/data/ProductCategories";
 // ------------ departments data
 import { departments } from "@/src/data/Departments";
+// -------- product data -------------
+import { products } from "@/src/data/Product";
 
 // image
 import logo from "@/public/logo.png";
@@ -68,22 +70,31 @@ const menus = [
 // departments
 
 const Header = () => {
-  const [showCategoryPopup, setShowCategoryPopup] = useState(false);
-  const [showMobileSidebar, setShowMobileSidebar] = useState(false);
-  const [openDepartmentsPopup, setOpenDepartmentsPopup] = useState(false);
   const [selectCategoryValue, setSelectCategoryValue] =
     useState("Select a Category");
 
+  // ----- search input ----------
   const [categoryValue, setCategoryValue] = useState("");
+  const [productValue, setProductValue] = useState("");
+
+  // --------- popup state -------------
+  const [openDepartmentsPopup, setOpenDepartmentsPopup] = useState(false);
+  const [showCategoryPopup, setShowCategoryPopup] = useState(false);
+  const [showProductPopup, setShowProductPopup] = useState(false);
+
+  const [showMobileSidebar, setShowMobileSidebar] = useState(false);
 
   // dropdown ref
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const departmentRef = useRef<HTMLDivElement>(null);
+  const productPopupRef = useRef<HTMLDivElement>(null);
 
   // handle outside click
   useOutsideClick(dropdownRef, () => setShowCategoryPopup(false));
   useOutsideClick(departmentRef, () => setOpenDepartmentsPopup(false));
+  useOutsideClick(productPopupRef, () => setShowProductPopup(false));
 
+  // ------ filterd search category -----------
   const filterSearchCategory = useMemo(() => {
     if (!categoryValue.trim()) return productCategories;
 
@@ -91,6 +102,15 @@ const Header = () => {
       cat.name.toLowerCase().includes(categoryValue.toLowerCase()),
     );
   }, [categoryValue]);
+
+  // ------- product search filterd ------------
+  const filterdProducts = useMemo(() => {
+    if (!productValue.trim()) return products;
+
+    return products.filter((product) =>
+      product.name.toLowerCase().includes(productValue.toLowerCase()),
+    );
+  }, [productValue]);
 
   return (
     <div className="max-w-(--container-width) w-full mx-auto px-2">
@@ -155,12 +175,64 @@ const Header = () => {
             )}
           </div>
 
-          {/* input  */}
-          <input
-            type="text"
-            className="w-full text-sm outline-none text-(--text-color)"
-            placeholder="Search product..."
-          />
+          {/* ----------- search product -------  */}
+          <div
+            ref={productPopupRef}
+            className="relative w-full text-sm outline-none text-(--text-color)"
+          >
+            <input
+              type="text"
+              value={productValue}
+              onChange={(e) => {
+                setProductValue(e.target.value);
+                setShowProductPopup(true);
+              }}
+              className="w-full outline-none"
+              placeholder="Search product..."
+            />
+
+            {/* ------------ product items popup -----------  */}
+            {showProductPopup && (
+              <div className="absolute left-0 top-7 z-50 bg-white p-2 py-5 border border-gray-200 w-full">
+                {filterdProducts.length > 0 ? (
+                  <div className="space-y-4">
+                    {filterdProducts.map((product) => (
+                      <div
+                        key={product?.id}
+                        className="flex gap-2 cursor-pointer"
+                      >
+                        <div className="w-10 h-10">
+                          <Image
+                            src={product.image}
+                            alt={product?.name}
+                            width={10}
+                            height={10}
+                            className="w-full object-cover"
+                            layout="responsive"
+                          />
+                        </div>
+
+                        {/* product details  */}
+                        <div className="space-y-1">
+                          <span className="text-(--text-green) text-xs font-semibold">
+                            {product?.category}
+                          </span>
+                          <h2 className="text-sm font-medium">
+                            {product.name}
+                          </h2>
+                          <span className="text-xs font-semibold">
+                            ${product?.price}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div>Product not found</div>
+                )}
+              </div>
+            )}
+          </div>
 
           {/* buton  */}
           <button className="bg-(--bg-color) hover:bg-(--bg-hover-color) transition-all duration-100 text-sm px-10 text-white py-2 rounded-2xl font-semibold cursor-pointer">
