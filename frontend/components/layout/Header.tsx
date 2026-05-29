@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion, AnimatePresence } from "motion/react";
@@ -34,15 +34,6 @@ import {
   Search,
   Headset,
   ChevronDown,
-  Salad,
-  Ham,
-  Vegan,
-  Apple,
-  Ship,
-  Egg,
-  Hamburger,
-  IceCreamBowl,
-  Banana,
 } from "lucide-react";
 
 // menus
@@ -80,6 +71,10 @@ const Header = () => {
   const [showCategoryPopup, setShowCategoryPopup] = useState(false);
   const [showMobileSidebar, setShowMobileSidebar] = useState(false);
   const [openDepartmentsPopup, setOpenDepartmentsPopup] = useState(false);
+  const [selectCategoryValue, setSelectCategoryValue] =
+    useState("Select a Category");
+
+  const [categoryValue, setCategoryValue] = useState("");
 
   // dropdown ref
   const dropdownRef = useRef<HTMLDivElement | null>(null);
@@ -88,6 +83,14 @@ const Header = () => {
   // handle outside click
   useOutsideClick(dropdownRef, () => setShowCategoryPopup(false));
   useOutsideClick(departmentRef, () => setOpenDepartmentsPopup(false));
+
+  const filterSearchCategory = useMemo(() => {
+    if (!categoryValue.trim()) return productCategories;
+
+    return productCategories.filter((cat) =>
+      cat.name.toLowerCase().includes(categoryValue.toLowerCase()),
+    );
+  }, [categoryValue]);
 
   return (
     <div className="max-w-(--container-width) w-full mx-auto px-2">
@@ -110,7 +113,7 @@ const Header = () => {
               className="flex items-center gap-7"
             >
               <span className="text-(--text-color) text-sm">
-                Select a Category
+                {selectCategoryValue}
               </span>
               <FontAwesomeIcon
                 icon={faCaretDown}
@@ -123,18 +126,30 @@ const Header = () => {
               <div className="absolute left-0 top-full bg-white border border-gray-200 p-2 space-y-1 z-50">
                 <input
                   type="text"
+                  value={categoryValue}
+                  onChange={(e) => setCategoryValue(e.target.value)}
                   className="w-full border border-gray-300 rounded text-sm outline-none text-(--text-color) py-1 px-2"
                   placeholder="search category..."
                 />
                 <div className="flex flex-col gap-2 text-(--text-color)">
-                  {productCategories.map((cate) => (
-                    <span
-                      key={cate?.id}
-                      className="hover:bg-(--bg-hover-color) hover:text-white rounded pl-2 text-sm py-2 transition-all duration-100"
-                    >
-                      {cate?.name}
+                  {filterSearchCategory.length > 0 ? (
+                    filterSearchCategory.map((cate) => (
+                      <span
+                        key={cate.id}
+                        onClick={() => {
+                          setSelectCategoryValue(cate.name);
+                          setShowCategoryPopup(false);
+                        }}
+                        className="hover:bg-(--bg-hover-color) hover:text-white rounded pl-2 text-sm py-2 transition-all duration-100"
+                      >
+                        {cate.name}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="text-sm text-gray-500 py-2">
+                      No category found
                     </span>
-                  ))}
+                  )}
                 </div>
               </div>
             )}
