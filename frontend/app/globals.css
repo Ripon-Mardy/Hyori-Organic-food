@@ -58,4 +58,5 @@
 /* ------------ shop page breadcurm banner -----------  */
 .shop-breadcrum-banner {
   background: url('../public/bg-breadcrum.jpg') center center no-repeat;
+  background-size: cover;
 }
