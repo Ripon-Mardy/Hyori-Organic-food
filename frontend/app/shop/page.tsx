@@ -1,15 +1,35 @@
 "use client";
-
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Range } from "react-range";
 
 // product category data
 import { productCategories } from "@/src/data/ProductCategories";
+// --- product data
+import { products } from "@/src/data/Product";
 
 const Breadcrumb = () => {
+  const [values, setValues] = useState([0, 0]);
+  const [priceRange, setPriceRange] = useState({ min: 0, max: 0 });
   const pathname = usePathname();
 
   const paths = pathname.split("/").filter(Boolean);
+
+  // get product min and max value
+  useEffect(() => {
+    const prices = products.map((product) => product.price);
+
+    const minPrice = Math.min(...prices);
+    const maxPrice = Math.max(...prices);
+
+    setPriceRange({
+      min: minPrice,
+      max: maxPrice,
+    });
+
+    setValues([minPrice, maxPrice]);
+  }, []);
 
   return (
     <section>
@@ -83,8 +103,51 @@ const Breadcrumb = () => {
                   Filter by price
                 </h2>
                 <div className="w-full h-0.5 bg-gray-200/50"></div>
+
+                <div className="w-full mt-10">
+                  {priceRange.max > priceRange.min && (
+                    <Range
+                      step={1}
+                      min={priceRange.min}
+                      max={priceRange.max}
+                      values={values}
+                      onChange={setValues}
+                      renderTrack={({ props, children }) => (
+                        <div
+                          {...props}
+                          className="h-1 w-full rounded bg-(--bg-color)"
+                        >
+                          {children}
+                        </div>
+                      )}
+                      renderThumb={({ props }) => {
+                        const { key, ...restProps } = props;
+
+                        return (
+                          <div
+                            key={key}
+                            {...restProps}
+                            className="h-4 w-4 rounded-full bg-green-600"
+                          />
+                        );
+                      }}
+                    />
+                  )}
+
+                  <button className="bg-(--bg-color) hover:bg-(--bg-hover-color) transition duration-100 px-6 text-white py-1 rounded-md text-sm mt-8 cursor-pointer">
+                    Filter
+                  </button>
+
+                  <div className="mt-4 flex justify-between">
+                    <span className="text-sm text-(--text-color) font-medium">
+                      ৳{values[0]}
+                    </span>
+                    <span className="text-sm text-(--text-color) font-medium">
+                      ৳{values[1]}
+                    </span>
+                  </div>
+                </div>
               </div>
-              <input type="range" min="0" max="1000" className="w-full" />
             </div>
           </div>
 

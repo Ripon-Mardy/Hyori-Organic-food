@@ -91,17 +91,20 @@ const Footer = () => {
             <div className="space-x-3">
               <FontAwesomeIcon
                 icon={faSquareFacebook}
-                className="cursor-pointer"
+                className="cursor-pointer text-sm"
               />
               <FontAwesomeIcon
                 icon={faSquareXTwitter}
-                className="cursor-pointer"
+                className="cursor-pointer text-sm"
               />
               <FontAwesomeIcon
                 icon={faSquareInstagram}
-                className="cursor-pointer"
+                className="cursor-pointer text-sm"
               />
-              <FontAwesomeIcon icon={faLinkedin} className="cursor-pointer" />
+              <FontAwesomeIcon
+                icon={faLinkedin}
+                className="cursor-pointer text-sm"
+              />
             </div>
           </div>
         </div>

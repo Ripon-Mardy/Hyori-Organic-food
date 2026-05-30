@@ -202,4 +202,43 @@ export const products: Product[] = [
 
     createdAt: "2026-05-01",
   },
+
+  {
+    id: 5,
+    name: "Pure Cow Milk",
+    slug: "pure-cow-milk",
+    sku: "MLK-005",
+
+    image: product5,
+
+    shortDescription: "100% pure and fresh cow milk.",
+    description:
+      "Farm-fresh cow milk rich in calcium and nutrients for a healthy lifestyle.",
+
+    category: "Milk",
+    brand: "Nature Dairy",
+    tags: ["milk", "fresh", "healthy"],
+
+    price: 500,
+    discountPrice: 110,
+    discountPercentage: 15,
+
+    stock: 0,
+    sold: 200,
+
+    unit: "1L",
+
+    rating: 4.7,
+    totalReviews: 410,
+
+    featured: true,
+    bestSeller: true,
+    trending: false,
+
+    isNew: false,
+    isSale: true,
+    isStock: false,
+
+    createdAt: "2026-05-01",
+  },
 ];
