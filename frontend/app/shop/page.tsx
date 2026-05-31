@@ -4,10 +4,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Range } from "react-range";
 
+// icons
+import { Grid3x3, Grid2x2 } from "lucide-react";
+
 // product category data
 import { productCategories } from "@/src/data/ProductCategories";
 // --- product data
 import { products } from "@/src/data/Product";
+import ProductCard from "@/components/ProductCard";
 
 const Breadcrumb = () => {
   const [values, setValues] = useState([0, 0]);
@@ -152,7 +156,40 @@ const Breadcrumb = () => {
           </div>
 
           {/* ---- right side products -----  */}
-          <div className="lg:col-span-8"> products </div>
+          <div className="lg:col-span-8">
+            {/* ---  sorting -- */}
+            <div className="flex items-center justify-between gap-3">
+              <p className="text-(--text-color) text-sm">
+                Showing 1–9 of 11 results
+              </p>
+              <div className="flex items-center justify-center gap-4">
+                <select
+                  name=""
+                  id=""
+                  className="text-sm text-(--text-color) px-2 py-2 rounded border border-gray-200 uppercase outline-none"
+                >
+                  <option selected value="Default Sorting">
+                    Default Sorting
+                  </option>
+                  <option value="">sort by popularity</option>
+                  <option value="">sort by avarage rating</option>
+                  <option value="">sort by latest</option>
+                  <option value="">sort by price : low to high</option>
+                  <option value="">sort by price : High to low</option>
+                </select>
+
+                {/* grid  */}
+                <div className="flex items-center gap-4">
+                  <Grid3x3 className="text-(--text-color) w-5 h-5 cursor-point items-center gap-4er" />
+                  <Grid2x2 className="text-(--text-color) w-5 h-5 cursor-pointer" />
+                </div>
+              </div>
+            </div>
+            <hr className="opacity-10 my-5" />
+
+            {/* --- product ---  */}
+            <div></div>
+          </div>
         </div>
       </div>
     </section>
