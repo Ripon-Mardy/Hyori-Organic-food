@@ -21,13 +21,20 @@ const Breadcrumb = () => {
   const productRef = useRef<HTMLDivElement>(null);
 
   // paginaiton state
+  const totalProducts = products.length;
   const [currentPage, setCurrentPage] = useState(1);
-  const productPerPage = 8;
+  const productPerPage = 20;
   const totalPages = Math.ceil(products.length / productPerPage);
   const startIndex = (currentPage - 1) * productPerPage;
   const currentProducts = products.slice(
     startIndex,
     startIndex + productPerPage,
+  );
+
+  const showingFrom = startIndex + 1;
+  const showingTo = Math.min(
+    startIndex + currentProducts.length,
+    totalProducts,
   );
 
   const paths = pathname.split("/").filter(Boolean);
@@ -181,7 +188,7 @@ const Breadcrumb = () => {
             {/* ---  sorting -- */}
             <div className="flex items-center justify-between gap-3">
               <p className="text-(--text-color) text-sm">
-                Showing 1–9 of 11 results
+                Showing {showingFrom}–{showingTo} of {totalProducts} results
               </p>
               <div className="flex items-center justify-center gap-4">
                 <select
