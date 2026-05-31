@@ -36,11 +36,11 @@ export default function ProductCard({ product }: ProductCardProps) {
 
       {/* ===== ACTION BUTTONS ===== */}
       <div className="absolute right-3 top-3 z-20 flex translate-x-14 flex-col gap-2 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100">
-        <button className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md transition hover:bg-black hover:text-white">
+        <button className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md transition hover:bg-black hover:text-white cursor-pointer">
           <Heart size={18} />
         </button>
 
-        <button className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md transition hover:bg-black hover:text-white">
+        <button className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md transition hover:bg-black hover:text-white cursor-pointer">
           <Eye size={18} />
         </button>
       </div>
@@ -50,7 +50,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         <Image
           src={product.image}
           alt={product.name}
-          className="h-32 sm:h-65 w-full object-cover transition duration-500 group-hover:scale-110"
+          className="h-32 sm:h-44 w-full object-cover transition duration-500 group-hover:scale-110"
         />
 
         {/* overlay */}
@@ -78,10 +78,12 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1 text-yellow-500">
             <Star size={16} fill="currentColor" />
-            <span className="text-sm font-medium">{product.rating}</span>
+            <span className="text-xs sm:text-sm font-medium">
+              {product.rating}
+            </span>
           </div>
 
-          <span className="text-sm text-gray-400">
+          <span className="text-xs sm:text-sm text-gray-400">
             ({product.totalReviews} reviews)
           </span>
         </div>
@@ -91,7 +93,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           <span>Sold: {product.sold}</span>
 
           {product.isStock ? (
-            <span className="font-medium text-sm text-green-600">
+            <span className="font-medium text-xs sm:text-sm text-green-600">
               In Stock ({product.stock})
             </span>
           ) : (
@@ -106,7 +108,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           </span>
 
           {product.discountPrice && (
-            <span className="text-sm text-gray-400 line-through">
+            <span className="text-xs sm:text-sm text-gray-400 line-through">
               ৳{product.price}
             </span>
           )}
@@ -115,7 +117,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         {/* button */}
         <button
           disabled={!product.isStock}
-          className={`flex w-full items-center justify-center gap-2 rounded-xl py-3 text-xs font-semibold transition-all duration-300 cursor-pointer ${
+          className={`flex w-full items-center justify-center gap-2 rounded-xl py-2 sm:py-3 text-xs font-semibold transition-all duration-300 cursor-pointer ${
             product.isStock
               ? "bg-green-600 text-white hover:bg-green-700"
               : "cursor-not-allowed bg-gray-200 text-gray-500"

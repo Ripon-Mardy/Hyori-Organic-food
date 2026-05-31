@@ -204,7 +204,7 @@ export const products: Product[] = [
   },
 
   {
-    id: 5,
+    id: 6,
     name: "Pure Cow Milk",
     slug: "pure-cow-milk",
     sku: "MLK-005",

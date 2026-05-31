@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Range } from "react-range";
+import ProductCard from "@/components/ProductCard";
 
 // icons
 import { Grid3x3, Grid2x2 } from "lucide-react";
@@ -11,7 +12,6 @@ import { Grid3x3, Grid2x2 } from "lucide-react";
 import { productCategories } from "@/src/data/ProductCategories";
 // --- product data
 import { products } from "@/src/data/Product";
-import ProductCard from "@/components/ProductCard";
 
 const Breadcrumb = () => {
   const [values, setValues] = useState([0, 0]);
@@ -168,14 +168,12 @@ const Breadcrumb = () => {
                   id=""
                   className="text-sm text-(--text-color) px-2 py-2 rounded border border-gray-200 uppercase outline-none"
                 >
-                  <option selected value="Default Sorting">
-                    Default Sorting
-                  </option>
-                  <option value="">sort by popularity</option>
-                  <option value="">sort by avarage rating</option>
-                  <option value="">sort by latest</option>
-                  <option value="">sort by price : low to high</option>
-                  <option value="">sort by price : High to low</option>
+                  <option value="Default Sorting">Default Sorting</option>
+                  <option value="1">sort by popularity</option>
+                  <option value="2">sort by avarage rating</option>
+                  <option value="3">sort by latest</option>
+                  <option value="4">sort by price : low to high</option>
+                  <option value="5">sort by price : High to low</option>
                 </select>
 
                 {/* grid  */}
@@ -188,7 +186,17 @@ const Breadcrumb = () => {
             <hr className="opacity-10 my-5" />
 
             {/* --- product ---  */}
-            <div></div>
+            <div>
+              {products.length > 0 ? (
+                <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-4 gap-2 sm:gap-4">
+                  {products.map((product) => (
+                    <ProductCard key={product?.id} product={product} />
+                  ))}
+                </div>
+              ) : (
+                <div>product not found</div>
+              )}
+            </div>
           </div>
         </div>
       </div>
