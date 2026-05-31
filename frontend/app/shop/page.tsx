@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Range } from "react-range";
@@ -12,14 +12,25 @@ import { Grid3x3, Grid2x2 } from "lucide-react";
 import { productCategories } from "@/src/data/ProductCategories";
 // --- product data
 import { products } from "@/src/data/Product";
+import Pagination from "@/components/Pagination";
 
 const Breadcrumb = () => {
   const [values, setValues] = useState([0, 0]);
   const [priceRange, setPriceRange] = useState({ min: 0, max: 0 });
   const pathname = usePathname();
+  const productRef = useRef<HTMLDivElement>(null);
+
+  // paginaiton state
+  const [currentPage, setCurrentPage] = useState(1);
+  const productPerPage = 8;
+  const totalPages = Math.ceil(products.length / productPerPage);
+  const startIndex = (currentPage - 1) * productPerPage;
+  const currentProducts = products.slice(
+    startIndex,
+    startIndex + productPerPage,
+  );
 
   const paths = pathname.split("/").filter(Boolean);
-
   // get product min and max value
   useEffect(() => {
     const prices = products.map((product) => product.price);
@@ -34,6 +45,16 @@ const Breadcrumb = () => {
 
     setValues([minPrice, maxPrice]);
   }, []);
+
+  // --------- handle page change ---------
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+
+    productRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
 
   return (
     <section>
@@ -71,7 +92,7 @@ const Breadcrumb = () => {
       </div>
 
       {/* ---------- shop ------------  */}
-      <div className="max-w-(--container-width) mx-auto py-16 px-2">
+      <div className="max-w-(--container-width) mx-auto pt-16 px-2">
         <div className="grid grid-cols-1 lg:grid-cols-10 gap-6">
           {/* -- side bar ---  */}
           <div className="lg:col-span-2 space-y-5">
@@ -156,7 +177,7 @@ const Breadcrumb = () => {
           </div>
 
           {/* ---- right side products -----  */}
-          <div className="lg:col-span-8">
+          <div ref={productRef} className="lg:col-span-8">
             {/* ---  sorting -- */}
             <div className="flex items-center justify-between gap-3">
               <p className="text-(--text-color) text-sm">
@@ -187,9 +208,9 @@ const Breadcrumb = () => {
 
             {/* --- product ---  */}
             <div>
-              {products.length > 0 ? (
+              {currentProducts.length > 0 ? (
                 <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-4 gap-2 sm:gap-4">
-                  {products.map((product) => (
+                  {currentProducts.map((product) => (
                     <ProductCard key={product?.id} product={product} />
                   ))}
                 </div>
@@ -199,6 +220,17 @@ const Breadcrumb = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* --------- pagination -----------  */}
+      <div className="max-w-(--container-width) mx-auto my-10">
+        {totalPages > 1 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+        )}
       </div>
     </section>
   );
