@@ -1,8 +1,7 @@
-import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
-const Login = () => {
+const Login = ({ loginPopup }: any) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center px-2">
       <div className="absolute inset-0 bg-black/80"></div>
@@ -12,7 +11,10 @@ const Login = () => {
         <h2 className="text-xl lg:text-2xl font-bold text-center">Login</h2>
 
         {/* cross button  */}
-        <span className="absolute right-2 top-2 text-xl text-gray-700 cursor-pointer">
+        <span
+          onClick={() => loginPopup()}
+          className="absolute right-2 top-2 text-xl text-gray-700 cursor-pointer"
+        >
           <FontAwesomeIcon icon={faXmark} />
         </span>
 

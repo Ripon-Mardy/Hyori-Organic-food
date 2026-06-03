@@ -37,6 +37,7 @@ import {
   Headset,
   ChevronDown,
 } from "lucide-react";
+import Login from "@/components/Login";
 
 // menus
 const menus = [
@@ -81,6 +82,7 @@ const Header = () => {
   const [openDepartmentsPopup, setOpenDepartmentsPopup] = useState(false);
   const [showCategoryPopup, setShowCategoryPopup] = useState(false);
   const [showProductPopup, setShowProductPopup] = useState(false);
+  const [openLoginPopup, setOpenLoginPopup] = useState(false);
 
   const [showMobileSidebar, setShowMobileSidebar] = useState(false);
 
@@ -112,8 +114,16 @@ const Header = () => {
     );
   }, [productValue]);
 
+  // --------- login popup =--------------
+  const loginPopup = () => {
+    setOpenLoginPopup(false);
+  };
+
   return (
     <div className="max-w-(--container-width) w-full mx-auto px-2">
+      {/* ----------- login popup -----------  */}
+      {openLoginPopup && <Login loginPopup={loginPopup} />}
+
       {/* ==== desktop mode =======  */}
       <div className="hidden md:flex items-center justify-between gap-4 py-5">
         {/* ======= logo =======  */}
@@ -242,7 +252,10 @@ const Header = () => {
 
         {/* ==== cart =========  */}
         <div className="flex items-center justify-center gap-4">
-          <Lock className="w-5 h-5 cursor-pointer text-(--text-color)" />
+          <Lock
+            onClick={() => setOpenLoginPopup(!openLoginPopup)}
+            className="w-5 h-5 cursor-pointer text-(--text-color)"
+          />
           <div className="relative cursor-pointer">
             <Heart className="w-5 h-5  text-(--text-color)" />
             {/* show number  */}
