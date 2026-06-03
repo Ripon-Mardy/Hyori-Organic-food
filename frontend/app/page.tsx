@@ -1,3 +1,4 @@
+import Login from "@/components/Login";
 import BannerBottom from "@/components/sections/BannerBottom";
 import BannerSlider from "@/components/sections/BannerSlider";
 import BestSeller from "@/components/sections/BestSeller";
@@ -16,6 +17,7 @@ export default function Home() {
       <ProductBottom />
       <Blogs />
       <Brands />
+      {/* <Login /> */}
     </>
   );
 }
