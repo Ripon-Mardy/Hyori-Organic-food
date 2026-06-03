@@ -1,7 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
-const Login = ({ loginPopup }: any) => {
+interface LoginProps {
+  loginPopup: () => void;
+}
+
+const Login = ({ loginPopup }: LoginProps) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center px-2">
       <div className="absolute inset-0 bg-black/80"></div>
