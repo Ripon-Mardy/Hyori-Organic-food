@@ -6,7 +6,7 @@ import { Range } from "react-range";
 import ProductCard from "@/components/ProductCard";
 
 // icons
-import { Grid3x3, Grid2x2, SlidersHorizontal } from "lucide-react";
+import { Grid3x3, Grid2x2, SlidersHorizontal, X } from "lucide-react";
 
 // product category data
 import { productCategories } from "@/src/data/ProductCategories";
@@ -19,6 +19,9 @@ const Breadcrumb = () => {
   const [priceRange, setPriceRange] = useState({ min: 0, max: 0 });
   const pathname = usePathname();
   const productRef = useRef<HTMLDivElement>(null);
+
+  // --------- popup state ----------
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   // paginaiton state
   const totalProducts = products.length;
@@ -101,12 +104,111 @@ const Breadcrumb = () => {
       {/* ---------- shop ------------  */}
       <div className="max-w-(--container-width) mx-auto pt-6 px-2">
         {/* -------- mobile filter button ----------  */}
-        <div className="fixed bottom-10 left-1/2 -translate-x-1/2 z-50 lg:hidden shadow rounded-md">
+        <div
+          onClick={() => setIsFilterOpen(!isFilterOpen)}
+          className="fixed bottom-10 left-1/2 -translate-x-1/2 z-50 lg:hidden shadow rounded-md"
+        >
           <button className="flex items-center justify-center gap-1 bg-(--bg-color) text-white px-8 py-1.5 rounded-md text-sm font-medium tracking-wider hover:bg-(--bg-hover-color) transition duration-100 cursor-pointer">
             <SlidersHorizontal className="w-4 h-4" />
             Filter
           </button>
         </div>
+
+        {/* -------- mobile filter section -------------  */}
+        {isFilterOpen && (
+          <div className="lg:hidden">
+            <div className="inset-0 bg-black/50 absolute left-0 top-0 z-50"></div>
+            <div className="fixed left-0 top-0 h-screen w-2/3 bg-white p-4 py-10 z-50">
+              {/* ------ close button ----------  */}
+              <div
+                onClick={() => setIsFilterOpen(!isFilterOpen)}
+                className="absolute right-2 top-2 text-gray-600 cursor-pointer hover:text-gray-800 transition-all duration-150"
+              >
+                <X className="w-5 h-5" />
+              </div>
+              <div className="space-y-5">
+                {/* ---filter by category --  */}
+                <div className="border border-gray-200 p-4 rounded-md shadow space-y-3">
+                  <div>
+                    <h2 className="text-base font-semibold pb-2 border-b-2 border-green-600 w-fit uppercase text-(--text-color)">
+                      Categories
+                    </h2>
+                    <div className="w-full h-0.5 bg-gray-200/50"></div>
+                  </div>
+                  <div>
+                    {productCategories.length > 0 ? (
+                      <div className="space-y-2 sm:space-y-3">
+                        {productCategories.map((product) => (
+                          <div key={product.id}>
+                            <span className="text-xs sm:text-sm font-medium text-(--text-color) cursor-pointer hover:text-(--text-green) transition duration-150">
+                              {product?.name}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div>No category found</div>
+                    )}
+                  </div>
+                </div>
+
+                {/* --- filter by price ---  */}
+                <div className="border border-gray-200 p-4 rounded-md shadow space-y-8">
+                  <div>
+                    <h2 className="text-sm sm:text-base font-semibold pb-2 border-b-2 border-green-600 w-fit uppercase text-(--text-color)">
+                      Filter by price
+                    </h2>
+                    <div className="w-full h-0.5 bg-gray-200/50"></div>
+
+                    <div className="w-full mt-10">
+                      {priceRange.max > priceRange.min && (
+                        <Range
+                          step={1}
+                          min={priceRange.min}
+                          max={priceRange.max}
+                          values={values}
+                          onChange={setValues}
+                          renderTrack={({ props, children }) => (
+                            <div
+                              {...props}
+                              className="h-1 w-full rounded bg-(--bg-color)"
+                            >
+                              {children}
+                            </div>
+                          )}
+                          renderThumb={({ props }) => {
+                            const { key, ...restProps } = props;
+
+                            return (
+                              <div
+                                key={key}
+                                {...restProps}
+                                className="h-4 w-4 rounded-full bg-green-600"
+                              />
+                            );
+                          }}
+                        />
+                      )}
+
+                      <button className="bg-(--bg-color) hover:bg-(--bg-hover-color) transition duration-100 px-6 text-white py-1 rounded-md text-sm mt-8 cursor-pointer">
+                        Filter
+                      </button>
+
+                      <div className="mt-4 flex justify-between">
+                        <span className="text-sm text-(--text-color) font-medium">
+                          ৳{values[0]}
+                        </span>
+                        <span className="text-sm text-(--text-color) font-medium">
+                          ৳{values[1]}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-10 gap-6">
           {/* -- side bar ---  */}
