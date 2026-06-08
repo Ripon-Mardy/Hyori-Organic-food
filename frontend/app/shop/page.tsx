@@ -6,7 +6,7 @@ import { Range } from "react-range";
 import ProductCard from "@/components/ProductCard";
 
 // icons
-import { Grid3x3, Grid2x2 } from "lucide-react";
+import { Grid3x3, Grid2x2, SlidersHorizontal } from "lucide-react";
 
 // product category data
 import { productCategories } from "@/src/data/ProductCategories";
@@ -99,10 +99,18 @@ const Breadcrumb = () => {
       </div>
 
       {/* ---------- shop ------------  */}
-      <div className="max-w-(--container-width) mx-auto pt-16 px-2">
+      <div className="max-w-(--container-width) mx-auto pt-6 px-2">
+        {/* -------- mobile filter button ----------  */}
+        <div className="fixed bottom-10 left-1/2 -translate-x-1/2 z-50 lg:hidden shadow rounded-md">
+          <button className="flex items-center justify-center gap-1 bg-(--bg-color) text-white px-8 py-1.5 rounded-md text-sm font-medium tracking-wider hover:bg-(--bg-hover-color) transition duration-100 cursor-pointer">
+            <SlidersHorizontal className="w-4 h-4" />
+            Filter
+          </button>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-10 gap-6">
           {/* -- side bar ---  */}
-          <div className="lg:col-span-2 space-y-5">
+          <div className="hidden lg:block lg:col-span-2 space-y-5">
             {/* ---filter by category --  */}
             <div className="border border-gray-200 p-4 rounded-md shadow space-y-3">
               <div>
@@ -186,15 +194,15 @@ const Breadcrumb = () => {
           {/* ---- right side products -----  */}
           <div ref={productRef} className="lg:col-span-8">
             {/* ---  sorting -- */}
-            <div className="flex items-center justify-between gap-3">
-              <p className="text-(--text-color) text-sm">
+            <div className="flex items-center justify-between flex-wrap gap-2 sm:gap-3">
+              <p className="text-(--text-color) text-xs sm:text-sm">
                 Showing {showingFrom}–{showingTo} of {totalProducts} results
               </p>
-              <div className="flex items-center justify-center gap-4">
+              <div className="flex items-center justify-center gap-2 sm:gap-4">
                 <select
                   name=""
                   id=""
-                  className="text-sm text-(--text-color) px-2 py-2 rounded border border-gray-200 uppercase outline-none"
+                  className="text-xs sm:text-sm text-(--text-color) py-2 rounded border border-gray-200 uppercase outline-none"
                 >
                   <option value="Default Sorting">Default Sorting</option>
                   <option value="1">sort by popularity</option>
