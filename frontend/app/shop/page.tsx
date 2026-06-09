@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Range } from "react-range";
+import { motion } from "motion/react";
 import ProductCard from "@/components/ProductCard";
 
 // icons
@@ -41,6 +42,7 @@ const Breadcrumb = () => {
   );
 
   const paths = pathname.split("/").filter(Boolean);
+
   // get product min and max value
   useEffect(() => {
     const prices = products.map((product) => product.price);
@@ -116,7 +118,7 @@ const Breadcrumb = () => {
 
         {/* -------- mobile filter section -------------  */}
         {isFilterOpen && (
-          <div className="lg:hidden">
+          <motion.div className="lg:hidden">
             <div className="inset-0 bg-black/50 absolute left-0 top-0 z-50"></div>
             <div className="fixed left-0 top-0 h-screen w-2/3 bg-white p-4 py-10 z-50">
               {/* ------ close button ----------  */}
@@ -207,7 +209,7 @@ const Breadcrumb = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
 
         <div className="grid grid-cols-1 lg:grid-cols-10 gap-6">
