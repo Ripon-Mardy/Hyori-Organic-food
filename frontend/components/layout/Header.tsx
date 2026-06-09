@@ -58,13 +58,13 @@ const menus = [
   },
   {
     id: 4,
-    name: "Blog",
-    link: "/blog",
+    name: "Blogs",
+    link: "/blogs",
   },
   {
     id: 5,
     name: "Login & Register",
-    link: "/login",
+    link: "#",
   },
 ];
 
@@ -459,12 +459,17 @@ const Header = () => {
             </AnimatePresence>
           </div>
 
-          {/* menus  */}
+          {/*----------- menus ---------------------  */}
           <div className="space-x-7">
             {menus.map((menu, index) => (
               <Link
                 key={index}
                 href={menu.link}
+                onClick={() => {
+                  if (menu.name === "Login & Register") {
+                    setOpenLoginPopup(true);
+                  }
+                }}
                 className="text-sm font-bold text-(--menu-text-color) hover:text-(--text-green) transition-all duration-150"
               >
                 {menu?.name}
