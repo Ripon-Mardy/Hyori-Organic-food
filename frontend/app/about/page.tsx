@@ -7,6 +7,7 @@ import Image from "next/image";
 import about from "@/public/about.jpg";
 
 import Brands from "@/components/sections/Brands";
+import { teamsData } from "@/src/data/Teams";
 
 const page = () => {
   const pathname = usePathname();
@@ -94,6 +95,43 @@ const page = () => {
               replenish for yielding so saw all one to yielding grass you’ll air
               sea it, open waters subdue, hath.
             </p>
+          </div>
+        </div>
+
+        {/* ---------- teams ---------------  */}
+        <div className="py-10">
+          <h2 className="text-xl sm:text-4xl font-semibold text-(--heading-color) text-center">
+            Meet Our Team
+          </h2>
+
+          <div>
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-7 sm:gap-10 py-10">
+              {teamsData.map((team) => (
+                <div
+                  key={team.id}
+                  className="flex flex-col items-center gap-3 text-center"
+                >
+                  <div className="w-full">
+                    <Image
+                      src={team.image}
+                      alt={team.name}
+                      width={100}
+                      height={100}
+                      layout="responsive"
+                      className="w-full rounded-lg"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-medium text-(--heading-color)">
+                      {team.name}
+                    </h3>
+                    <p className="text-sm text-(--text-color)">
+                      {team.position}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 

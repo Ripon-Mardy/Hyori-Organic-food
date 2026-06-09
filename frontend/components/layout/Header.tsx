@@ -53,13 +53,13 @@ const menus = [
   },
   {
     id: 3,
-    name: "Blog",
-    link: "/blog",
+    name: "About",
+    link: "/about",
   },
   {
     id: 4,
-    name: "About",
-    link: "/about",
+    name: "Blog",
+    link: "/blog",
   },
   {
     id: 5,
