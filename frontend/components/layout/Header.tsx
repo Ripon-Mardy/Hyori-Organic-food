@@ -37,7 +37,8 @@ import {
   Headset,
   ChevronDown,
 } from "lucide-react";
-import Login from "@/components/Login";
+import Login from "@/components/auth/LoginForm";
+import AuthModel from "@/components/auth/AuthModel";
 
 // menus
 const menus = [
@@ -82,9 +83,8 @@ const Header = () => {
   const [openDepartmentsPopup, setOpenDepartmentsPopup] = useState(false);
   const [showCategoryPopup, setShowCategoryPopup] = useState(false);
   const [showProductPopup, setShowProductPopup] = useState(false);
-  const [openLoginPopup, setOpenLoginPopup] = useState(false);
-
   const [showMobileSidebar, setShowMobileSidebar] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
   // dropdown ref
   const dropdownRef = useRef<HTMLDivElement | null>(null);
@@ -115,15 +115,14 @@ const Header = () => {
   }, [productValue]);
 
   // --------- login popup =--------------
-  const loginPopup = () => {
-    setOpenLoginPopup(false);
-  };
 
   return (
     <div className="max-w-(--container-width) w-full mx-auto px-2">
       {/* ----------- login popup -----------  */}
       <AnimatePresence>
-        {openLoginPopup && <Login loginPopup={loginPopup} />}
+        {showAuthModal && (
+          <AuthModel closeModal={() => setShowAuthModal(false)} />
+        )}
       </AnimatePresence>
 
       {/* ==== desktop mode =======  */}
@@ -255,7 +254,7 @@ const Header = () => {
         {/* ==== cart =========  */}
         <div className="flex items-center justify-center gap-4">
           <Lock
-            onClick={() => setOpenLoginPopup(!openLoginPopup)}
+            onClick={() => setShowAuthModal(true)}
             className="w-5 h-5 cursor-pointer text-(--text-color)"
           />
           <div className="relative cursor-pointer">
@@ -469,7 +468,7 @@ const Header = () => {
                 href={menu.link}
                 onClick={() => {
                   if (menu.name === "Login & Register") {
-                    setOpenLoginPopup(true);
+                    setShowAuthModal(true);
                   }
                 }}
                 className="text-sm font-bold text-(--menu-text-color) hover:text-(--text-green) transition-all duration-150"

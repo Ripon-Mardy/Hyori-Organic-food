@@ -1,4 +1,4 @@
-import Login from "@/components/Login";
+import Login from "@/components/auth/LoginForm";
 import BannerBottom from "@/components/sections/BannerBottom";
 import BannerSlider from "@/components/sections/BannerSlider";
 import BestSeller from "@/components/sections/BestSeller";
