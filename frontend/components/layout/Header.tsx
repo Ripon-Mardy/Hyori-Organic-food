@@ -122,7 +122,9 @@ const Header = () => {
   return (
     <div className="max-w-(--container-width) w-full mx-auto px-2">
       {/* ----------- login popup -----------  */}
-      {openLoginPopup && <Login loginPopup={loginPopup} />}
+      <AnimatePresence>
+        {openLoginPopup && <Login loginPopup={loginPopup} />}
+      </AnimatePresence>
 
       {/* ==== desktop mode =======  */}
       <div className="hidden md:flex items-center justify-between gap-4 py-5">

@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { AnimatePresence, motion } from "motion/react";
 
 interface LoginProps {
   loginPopup: () => void;
@@ -8,10 +9,34 @@ interface LoginProps {
 const Login = ({ loginPopup }: LoginProps) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center px-2">
-      <div className="absolute inset-0 bg-black/80"></div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.1 }}
+        className="absolute inset-0 bg-black/80"
+      ></motion.div>
 
       {/* Modal */}
-      <div className="relative z-10 bg-white p-5 shadow-xl w-full max-w-md rounded">
+      <motion.div
+        initial={{
+          opacity: 0,
+          scale: 0.9,
+          y: 20,
+        }}
+        animate={{
+          opacity: 1,
+          scale: 1,
+          y: 0,
+        }}
+        exit={{
+          opacity: 0,
+          scale: 0.9,
+          y: 20,
+        }}
+        transition={{ duration: 0.1 }}
+        className="relative z-10 bg-white p-5 shadow-xl w-full max-w-md rounded"
+      >
         <h2 className="text-xl lg:text-2xl font-bold text-center">Login</h2>
 
         {/* cross button  */}
@@ -74,7 +99,7 @@ const Login = ({ loginPopup }: LoginProps) => {
             </button>
           </div>
         </form>
-      </div>
+      </motion.div>
     </div>
   );
 };
