@@ -4,17 +4,12 @@ import React, { useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion, AnimatePresence } from "motion/react";
-
+import { useDispatch } from "react-redux";
 import Link from "next/link";
 
-import { useOutsideClick } from "@/hooks/useOutsideClick";
-
-// ----------- category data
-import { productCategories } from "@/src/data/ProductCategories";
-// ------------ departments data
-import { departments } from "@/src/data/Departments";
-// -------- product data -------------
-import { products } from "@/src/data/Product";
+import { productCategories } from "@/src/data/ProductCategories"; // product category data
+import { departments } from "@/src/data/Departments"; // departments data
+import { products } from "@/src/data/Product"; // products data
 
 // image
 import logo from "@/public/logo.png";
@@ -37,8 +32,10 @@ import {
   Headset,
   ChevronDown,
 } from "lucide-react";
-import Login from "@/components/auth/LoginForm";
+
 import AuthModel from "@/components/auth/AuthModel";
+import { useOutsideClick } from "@/hooks/useOutsideClick";
+import { openCart } from "@/store/cartSlice"; //open cart from redux cartslice
 
 // menus
 const menus = [
@@ -68,9 +65,6 @@ const menus = [
     link: "#",
   },
 ];
-
-// departments
-
 const Header = () => {
   const [selectCategoryValue, setSelectCategoryValue] =
     useState("Select a Category");
@@ -85,6 +79,8 @@ const Header = () => {
   const [showProductPopup, setShowProductPopup] = useState(false);
   const [showMobileSidebar, setShowMobileSidebar] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
+
+  const disPatch = useDispatch(); // import dispatch from redux
 
   // dropdown ref
   const dropdownRef = useRef<HTMLDivElement | null>(null);
@@ -270,7 +266,11 @@ const Header = () => {
               0
             </span>
           </Link>
-          <div className="relative cursor-pointer" title="Cart">
+          <div
+            onClick={() => disPatch(openCart())}
+            className="relative cursor-pointer"
+            title="Cart"
+          >
             <Handbag className="w-5 h-5  text-(--text-color)" />
             {/* show number  */}
             <span className="absolute -right-1 top-3 text-xs bg-(--bg-color) rounded-full w-4 text-white flex items-center justify-center font-semibold">
