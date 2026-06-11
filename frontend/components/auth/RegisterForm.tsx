@@ -9,38 +9,44 @@ export default function RegisterForm({ switchToLogin }: RegisterFormProps) {
 
       <form className="mt-8 space-y-5">
         <div>
-          <label className="block mb-2 text-sm font-medium">Full Name</label>
+          <label className="block mb-2 text-sm font-medium text-(--heading-color)">
+            Full Name
+          </label>
 
           <input
             type="text"
             placeholder="Enter your name"
-            className="w-full border rounded-md p-3"
+            className="w-full border border-gray-400 rounded-md p-3 outline-none text-sm"
           />
         </div>
 
         <div>
-          <label className="block mb-2 text-sm font-medium">Email</label>
+          <label className="block mb-2 text-sm font-medium text-(--heading-color)">
+            Email
+          </label>
 
           <input
             type="email"
             placeholder="Enter email"
-            className="w-full border rounded-md p-3"
+            className="w-full border border-gray-400 rounded-md p-3 outline-none text-sm"
           />
         </div>
 
         <div>
-          <label className="block mb-2 text-sm font-medium">Password</label>
+          <label className="block mb-2 text-sm font-medium text-(--heading-color)">
+            Password
+          </label>
 
           <input
             type="password"
             placeholder="Enter password"
-            className="w-full border rounded-md p-3"
+            className="w-full border border-gray-400 rounded-md p-3 outline-none text-sm"
           />
         </div>
 
         <button
           type="submit"
-          className="w-full bg-black text-white py-3 rounded-md"
+          className="w-full bg-(--bg-color) hover:bg-(--bg-hover-color) font-semibold transition-colors duration-100 text-white py-3 rounded-md cursor-pointer"
         >
           Register
         </button>
@@ -50,7 +56,7 @@ export default function RegisterForm({ switchToLogin }: RegisterFormProps) {
           <button
             type="button"
             onClick={switchToLogin}
-            className="ml-2 underline"
+            className="ml-2 underline hover:text-(--text-hover-color) transition-colors duration-100 cursor-pointer"
           >
             Login
           </button>

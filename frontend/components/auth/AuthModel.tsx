@@ -45,7 +45,7 @@ export default function AuthModal({ closeModal }: AuthModalProps) {
       >
         <button
           onClick={closeModal}
-          className="absolute right-3 top-3 text-gray-600"
+          className="absolute right-3 top-3 text-gray-600 cursor-pointer"
         >
           <FontAwesomeIcon icon={faXmark} />
         </button>
@@ -54,9 +54,9 @@ export default function AuthModal({ closeModal }: AuthModalProps) {
           {view === "login" && (
             <motion.div
               key="login"
-              initial={{ x: -50, opacity: 0 }}
+              // initial={{ x: -50, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
-              exit={{ x: -50, opacity: 0 }}
+              // exit={{ x: -50, opacity: 0 }}
             >
               <LoginForm
                 switchToRegister={() => setView("register")}
@@ -71,6 +71,7 @@ export default function AuthModal({ closeModal }: AuthModalProps) {
               initial={{ x: 50, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: 50, opacity: 0 }}
+              transition={{ duration: 0.1 }}
             >
               <RegisterForm switchToLogin={() => setView("login")} />
             </motion.div>
@@ -82,6 +83,7 @@ export default function AuthModal({ closeModal }: AuthModalProps) {
               initial={{ x: 50, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: 50, opacity: 0 }}
+              transition={{ duration: 0.1 }}
             >
               <ForgotPasswordForm switchToLogin={() => setView("login")} />
             </motion.div>
