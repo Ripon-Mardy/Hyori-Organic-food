@@ -37,7 +37,7 @@ const BannerBottom = () => {
   return (
     <section className="py-16">
       <div className="max-w-(--container-width) mx-auto px-2">
-        <div className="grid grid-cols-1 md:grid-cols-7 gap-5 sm:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-7 gap-4 sm:gap-8">
           {banners.map((banner, index) => {
             const isSmall = index === 0 || index === 3;
 
@@ -61,16 +61,16 @@ const BannerBottom = () => {
 
                 {/* content */}
                 <div className="absolute inset-0 z-20 flex items-center">
-                  <div className="px-6 md:px-8 max-w-sm space-y-3">
-                    <h2 className="text-xl text-(--heading-color) font-bold leading-tight">
+                  <div className="px-6 md:px-8 max-w-sm space-y-2 sm:space-y-3">
+                    <h2 className="text-lg sm:text-xl text-(--heading-color) font-semibold sm:font-bold leading-tight">
                       {banner.title}
                     </h2>
 
-                    <p className="text-base font-medium text-(--text-color)">
+                    <p className="text-sm sm:text-base font-medium text-(--text-color)">
                       {banner.description}
                     </p>
 
-                    <button className="mt-2 bg-green-600 hover:bg-green-700 transition-all duration-200 px-5 py-2.5 rounded-xl text-sm font-medium text-white">
+                    <button className="mt-2 bg-green-600 hover:bg-green-700 transition-all duration-200 px-5 py-2.5 rounded-xl sm:text-sm text-xs font-medium text-white">
                       Shop Now
                     </button>
                   </div>

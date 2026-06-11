@@ -65,7 +65,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         </span>
 
         {/* title */}
-        <h3 className="line-clamp-3 text-base font-semibold text-gray-900 transition hover:text-green-600">
+        <h3 className="line-clamp-3 text-base font-semibold text-gray-900 transition hover:text-green-600 cursor-pointer">
           {product.name}
         </h3>
 

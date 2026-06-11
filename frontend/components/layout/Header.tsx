@@ -128,9 +128,9 @@ const Header = () => {
       {/* ==== desktop mode =======  */}
       <div className="hidden md:flex items-center justify-between gap-4 py-5">
         {/* ======= logo =======  */}
-        <div>
+        <Link href={"/"} className="cursor-pointer">
           <Image src={logo} width={100} height={100} alt="logo" />
-        </div>
+        </Link>
 
         {/* ======= search category  =========  */}
         <div
@@ -253,18 +253,24 @@ const Header = () => {
 
         {/* ==== cart =========  */}
         <div className="flex items-center justify-center gap-4">
-          <Lock
-            onClick={() => setShowAuthModal(true)}
-            className="w-5 h-5 cursor-pointer text-(--text-color)"
-          />
-          <div className="relative cursor-pointer">
+          <span title="Login or Register">
+            <Lock
+              onClick={() => setShowAuthModal(true)}
+              className="w-5 h-5 cursor-pointer text-(--text-color)"
+            />
+          </span>
+          <Link
+            href={"/wishlist"}
+            className="relative cursor-pointer"
+            title="Wishlist"
+          >
             <Heart className="w-5 h-5  text-(--text-color)" />
             {/* show number  */}
             <span className="absolute -right-1 top-3 text-xs bg-(--bg-color) rounded-full w-4 text-white flex items-center justify-center font-semibold">
               0
             </span>
-          </div>
-          <div className="relative cursor-pointer">
+          </Link>
+          <div className="relative cursor-pointer" title="Cart">
             <Handbag className="w-5 h-5  text-(--text-color)" />
             {/* show number  */}
             <span className="absolute -right-1 top-3 text-xs bg-(--bg-color) rounded-full w-4 text-white flex items-center justify-center font-semibold">
@@ -289,12 +295,21 @@ const Header = () => {
             alt="logo"
           />
         </div>
-        <div className="relative cursor-pointer">
-          <Handbag className="w-5 h-5  text-(--text-color)" />
-          {/* show number  */}
-          <span className="absolute -right-1 top-3 text-xs bg-(--bg-color) rounded-full w-4 text-white flex items-center justify-center font-semibold">
-            0
-          </span>
+        <div className="flex items-center justify-center gap-6">
+          <Link href={"/wishlist"} className="relative cursor-pointer">
+            <Heart className="w-5 h-5  text-(--text-color)" />
+            {/* show number  */}
+            <span className="absolute -right-1 top-3 text-xs bg-(--bg-color) rounded-full w-4 text-white flex items-center justify-center font-semibold">
+              0
+            </span>
+          </Link>
+          <div className="relative cursor-pointer">
+            <Handbag className="w-5 h-5  text-(--text-color)" />
+            {/* show number  */}
+            <span className="absolute -right-1 top-3 text-xs bg-(--bg-color) rounded-full w-4 text-white flex items-center justify-center font-semibold">
+              0
+            </span>
+          </div>
         </div>
       </div>
 
