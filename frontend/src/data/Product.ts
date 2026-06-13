@@ -178,7 +178,7 @@ export const products = [
     category: "Vegetables",
     brand: "Fresh Valley",
     tags: ["fresh", "organic"],
-    price: 60,
+    price: 40,
     discountPrice: 55,
     discountPercentage: 8,
     stock: 120,

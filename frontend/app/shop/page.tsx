@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Range } from "react-range";
@@ -9,29 +9,22 @@ import ProductCard from "@/components/ProductCard";
 // icons
 import { Grid3x3, Grid2x2, SlidersHorizontal, X } from "lucide-react";
 
-// product category data
-import { productCategories } from "@/src/data/ProductCategories";
-// --- product data
-import { products } from "@/src/data/Product";
+import { Product } from "@/src/types/product.types"; // products type
+import { productCategories } from "@/src/data/ProductCategories"; // product category data
+import { products } from "@/src/data/Product"; /// products data
 import Pagination from "@/components/Pagination";
-import NotFound from "@/components/shared/NotFound";
 
 const Breadcrumb = () => {
-  const [values, setValues] = useState([0, 0]);
   const [priceRange, setPriceRange] = useState({ min: 0, max: 0 });
+  const [values, setValues] = useState([priceRange.min, priceRange.max]);
   const pathname = usePathname();
   const productRef = useRef<HTMLDivElement>(null);
+  const [filteredProducts, setFilterdProducts] = useState<any>([]);
 
   const [selectedCategory, setSelectedCategory] = useState("");
-  console.log("selectedCategory", selectedCategory);
 
   // --------- popup state ----------
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-
-  // ==== filterd products ===
-  const filterdProducts = selectedCategory
-    ? products.filter((product) => product.category === selectedCategory)
-    : products;
 
   // paginaiton state
   const totalProducts = products.length;
@@ -39,7 +32,7 @@ const Breadcrumb = () => {
   const productPerPage = 20;
   const totalPages = Math.ceil(products.length / productPerPage);
   const startIndex = (currentPage - 1) * productPerPage;
-  const currentProducts = filterdProducts.slice(
+  const currentProducts = filteredProducts.slice(
     startIndex,
     startIndex + productPerPage,
   );
@@ -50,11 +43,14 @@ const Breadcrumb = () => {
     totalProducts,
   );
 
+  // product length
+  const hasProducts = currentProducts.length > 0;
+
   const paths = pathname.split("/").filter(Boolean);
 
   // get product min and max value
   useEffect(() => {
-    const prices = products.map((product) => product.price);
+    const prices = products.map((product) => product.discountPrice);
 
     const minPrice = Math.min(...prices);
     const maxPrice = Math.max(...prices);
@@ -80,6 +76,24 @@ const Breadcrumb = () => {
   // ==== selected category ===
   const handleProductCategoryClick = (category: string) => {
     setSelectedCategory(category);
+  };
+
+  useEffect(() => {
+    const filterdCategoryProduct = selectedCategory
+      ? products.filter((product) => product.category === selectedCategory)
+      : products;
+
+    setFilterdProducts(filterdCategoryProduct);
+  }, [products, selectedCategory]);
+
+  // ===== handleFilterPrice
+  const handleFilterPrice = () => {
+    const filteredPriceRange = products.filter(
+      (product) =>
+        product.discountPrice >= values[0] &&
+        product.discountPrice <= values[1],
+    );
+    setFilterdProducts(filteredPriceRange);
   };
 
   return (
@@ -274,7 +288,7 @@ const Breadcrumb = () => {
                       min={priceRange.min}
                       max={priceRange.max}
                       values={values}
-                      onChange={setValues}
+                      onChange={(values) => setValues(values)}
                       renderTrack={({ props, children }) => (
                         <div
                           {...props}
@@ -297,7 +311,10 @@ const Breadcrumb = () => {
                     />
                   )}
 
-                  <button className="bg-(--bg-color) hover:bg-(--bg-hover-color) transition duration-100 px-6 text-white py-1 rounded-md text-sm mt-8 cursor-pointer">
+                  <button
+                    onClick={handleFilterPrice}
+                    className="bg-(--bg-color) hover:bg-(--bg-hover-color) transition duration-100 px-6 text-white py-1 rounded-md text-sm mt-8 cursor-pointer"
+                  >
                     Filter
                   </button>
 
@@ -346,9 +363,9 @@ const Breadcrumb = () => {
 
             {/* --- product ---  */}
             <div>
-              {currentProducts.length > 0 ? (
+              {hasProducts ? (
                 <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-4 gap-2 sm:gap-4">
-                  {currentProducts.map((product) => (
+                  {currentProducts.map((product: Product) => (
                     <ProductCard key={product?.id} product={product} />
                   ))}
                 </div>
