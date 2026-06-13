@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Range } from "react-range";
@@ -14,6 +14,7 @@ import { productCategories } from "@/src/data/ProductCategories";
 // --- product data
 import { products } from "@/src/data/Product";
 import Pagination from "@/components/Pagination";
+import NotFound from "@/components/shared/NotFound";
 
 const Breadcrumb = () => {
   const [values, setValues] = useState([0, 0]);
@@ -21,8 +22,16 @@ const Breadcrumb = () => {
   const pathname = usePathname();
   const productRef = useRef<HTMLDivElement>(null);
 
+  const [selectedCategory, setSelectedCategory] = useState("");
+  console.log("selectedCategory", selectedCategory);
+
   // --------- popup state ----------
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+
+  // ==== filterd products ===
+  const filterdProducts = selectedCategory
+    ? products.filter((product) => product.category === selectedCategory)
+    : products;
 
   // paginaiton state
   const totalProducts = products.length;
@@ -30,7 +39,7 @@ const Breadcrumb = () => {
   const productPerPage = 20;
   const totalPages = Math.ceil(products.length / productPerPage);
   const startIndex = (currentPage - 1) * productPerPage;
-  const currentProducts = products.slice(
+  const currentProducts = filterdProducts.slice(
     startIndex,
     startIndex + productPerPage,
   );
@@ -66,6 +75,11 @@ const Breadcrumb = () => {
       behavior: "smooth",
       block: "start",
     });
+  };
+
+  // ==== selected category ===
+  const handleProductCategoryClick = (category: string) => {
+    setSelectedCategory(category);
   };
 
   return (
@@ -228,7 +242,12 @@ const Breadcrumb = () => {
                   <div className="space-y-2 sm:space-y-3">
                     {productCategories.map((product) => (
                       <div key={product.id}>
-                        <span className="text-xs sm:text-sm font-medium text-(--text-color) cursor-pointer hover:text-(--text-green) transition duration-150">
+                        <span
+                          onClick={() =>
+                            handleProductCategoryClick(product.name)
+                          }
+                          className={`text-xs sm:text-sm font-medium text-(--text-color) cursor-pointer hover:text-(--text-green) transition duration-150 ${product.name === selectedCategory ? "text-(--text-green)" : ""} `}
+                        >
                           {product?.name}
                         </span>
                       </div>
@@ -334,7 +353,9 @@ const Breadcrumb = () => {
                   ))}
                 </div>
               ) : (
-                <div>product not found</div>
+                <div className="text-2xl font-semibold text-center text-(--text-color)">
+                  Not Found Product
+                </div>
               )}
             </div>
           </div>

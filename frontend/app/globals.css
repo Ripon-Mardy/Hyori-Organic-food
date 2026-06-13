@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
 :root {
-  /* container width  */
   --container-width : 1200px;
 
   /* text color  */
