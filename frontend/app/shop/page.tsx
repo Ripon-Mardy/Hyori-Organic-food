@@ -166,7 +166,7 @@ const Breadcrumb = () => {
         {/* -------- mobile filter button ----------  */}
         <div
           onClick={() => setIsFilterOpen(!isFilterOpen)}
-          className="fixed bottom-10 left-1/2 -translate-x-1/2 z-50 lg:hidden shadow rounded-md"
+          className="fixed bottom-10 left-1/2 -translate-x-1/2 z-40 lg:hidden shadow rounded-md"
         >
           <button className="flex items-center justify-center gap-1 bg-(--bg-color) text-white px-8 py-1.5 rounded-md text-sm font-medium tracking-wider hover:bg-(--bg-hover-color) transition duration-100 cursor-pointer">
             <SlidersHorizontal className="w-4 h-4" />

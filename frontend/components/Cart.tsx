@@ -35,7 +35,7 @@ const Cart = () => {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ duration: 0.2 }}
-              className="absolute bg-white right-0 top-0 z-50 w-1/3 h-screen"
+              className="absolute bg-white right-0 top-0 z-50 w-2/3 sm:w-1/3 h-screen"
             >
               <div className="flex items-center justify-between gap-2 bg-(--bg-color) p-2 py-2">
                 <X

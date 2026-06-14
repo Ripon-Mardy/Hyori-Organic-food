@@ -303,7 +303,10 @@ const Header = () => {
               0
             </span>
           </Link>
-          <div className="relative cursor-pointer">
+          <div
+            onClick={() => disPatch(openCart())}
+            className="relative cursor-pointer"
+          >
             <Handbag className="w-5 h-5  text-(--text-color)" />
             {/* show number  */}
             <span className="absolute -right-1 top-3 text-xs bg-(--bg-color) rounded-full w-4 text-white flex items-center justify-center font-semibold">
@@ -324,7 +327,7 @@ const Header = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-black/40"
+              className="fixed inset-0 bg-black/40 z-50"
             ></motion.div>
             {/* == side bar ==  */}
             <motion.div
@@ -334,7 +337,7 @@ const Header = () => {
               transition={{
                 duration: 0.3,
               }}
-              className="bg-white absolute left-0 top-0 py-5 p-3 w-2/3 h-screen z-50 shadow space-y-5 overflow-y-auto"
+              className="fixed bg-white left-0 top-0 py-5 p-3 w-2/3 h-screen z-50 shadow space-y-5 overflow-y-auto"
             >
               {/* logo and cart button  */}
               <div className="flex items-center justify-between gap-3">
@@ -351,7 +354,13 @@ const Header = () => {
                     className="w-full"
                   />
                 </div>
-                <div className="relative cursor-pointer">
+                <div
+                  onClick={() => {
+                    setShowMobileSidebar(false);
+                    disPatch(openCart());
+                  }}
+                  className="relative cursor-pointer"
+                >
                   <Handbag className="w-5 h-5  text-(--text-color)" />
                   {/* show number  */}
                   <span className="absolute -right-1 top-3 text-xs bg-(--bg-color) rounded-full w-4 text-white flex items-center justify-center font-semibold">

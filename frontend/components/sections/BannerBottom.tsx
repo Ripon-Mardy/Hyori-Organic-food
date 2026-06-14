@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 // images
 import bannerBottomImage1 from "@/public/banner-bottom/banner-01.webp";
@@ -70,9 +71,12 @@ const BannerBottom = () => {
                       {banner.description}
                     </p>
 
-                    <button className="mt-2 bg-green-600 hover:bg-green-700 transition-all duration-200 px-5 py-2.5 rounded-xl sm:text-sm text-xs font-medium text-white">
+                    <Link
+                      href={"/shop"}
+                      className="mt-2 bg-green-600 hover:bg-green-700 transition-all duration-200 px-5 py-2.5 rounded-xl sm:text-sm text-xs font-medium text-white"
+                    >
                       Shop Now
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>

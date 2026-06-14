@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // images
@@ -11,6 +12,8 @@ import redApple from "@/public/best-seller/red-apple.webp";
 
 import leftSideImage from "@/public/best-seller/left-side-image.webp";
 import { faStar } from "@fortawesome/free-solid-svg-icons/faStar";
+
+import { products } from "@/src/data/Product";
 
 // --------- best seller data ------------
 const bestSellerData = [
@@ -77,6 +80,8 @@ const bestSellerData = [
 ];
 
 const BestSeller = () => {
+  const bestSeller = products.filter((prodcut) => prodcut.bestSeller);
+  const hasBestSeller = bestSeller.length > 0;
   return (
     <section className="py-16 best-seller-bg">
       <div className="max-w-(--container-width) mx-auto px-2">
@@ -107,54 +112,68 @@ const BestSeller = () => {
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-2 items-center justify-center gap-2 sm:gap-6 w-full">
-              {bestSellerData?.map((item) => (
-                <div
-                  key={item.id}
-                  className="bg-white p-2 sm:p-4 rounded-md flex items-center border border-gray-200 gap-2 w-full hover:border hover:border-(--text-green) transition-colors duration-150 cursor-pointer"
-                >
-                  <div className="w-12 sm:w-20 h-12 sm:h-20 rounded-md overflow-hidden ">
-                    <Image
-                      src={item.image}
-                      width={30}
-                      height={30}
-                      className="w-full object-cover"
-                      alt={item.name}
-                      title={item.name}
-                      layout="responsive"
-                    />
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <h2 className="text-sm sm:text-base text-(--heading-color) font-semibold">
-                      {item.name}
-                    </h2>
-                    {/* rating  */}
-                    <div className="flex items-center gap-3">
-                      {/* stars */}
-                      <div className="flex items-center">
-                        {[...Array(5)].map((_, index) => (
-                          <FontAwesomeIcon
-                            key={index}
-                            icon={faStar}
-                            className={`text-xs ${
-                              index < item.rating
-                                ? "text-yellow-400"
-                                : "text-gray-300"
-                            }`}
-                          />
-                        ))}
-                      </div>
+              {hasBestSeller ? (
+                bestSellerData?.slice(0, 6).map((item) => (
+                  <div
+                    key={item.id}
+                    className="bg-white p-2 sm:p-4 rounded-md flex items-center border border-gray-200 gap-2 w-full hover:border hover:border-(--text-green) transition-colors duration-150 cursor-pointer"
+                  >
+                    <div className="w-12 sm:w-20 h-12 sm:h-20 rounded-md overflow-hidden ">
+                      <Image
+                        src={item.image}
+                        width={30}
+                        height={30}
+                        className="w-full object-cover"
+                        alt={item.name}
+                        title={item.name}
+                        layout="responsive"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <h2 className="text-sm sm:text-base text-(--heading-color) font-semibold">
+                        {item.name}
+                      </h2>
+                      {/* rating  */}
+                      <div className="flex items-center gap-3">
+                        {/* stars */}
+                        <div className="flex items-center">
+                          {[...Array(5)].map((_, index) => (
+                            <FontAwesomeIcon
+                              key={index}
+                              icon={faStar}
+                              className={`text-xs ${
+                                index < item.rating
+                                  ? "text-yellow-400"
+                                  : "text-gray-300"
+                              }`}
+                            />
+                          ))}
+                        </div>
 
-                      {/* review count */}
-                      <span className="text-xs text-gray-500">
-                        ({item.reviews})
+                        {/* review count */}
+                        <span className="text-xs text-gray-500">
+                          ({item.reviews})
+                        </span>
+                      </div>
+                      <span className="text-xs sm:text-sm text-(--text-green) font-bold">
+                        ${item.price.toFixed(2)}
                       </span>
                     </div>
-                    <span className="text-xs sm:text-sm text-(--text-green) font-bold">
-                      ${item.price.toFixed(2)}
-                    </span>
                   </div>
+                ))
+              ) : (
+                <div className="text-base text-(--text-color) font-semibold">
+                  No Best Products Available
                 </div>
-              ))}
+              )}
+            </div>
+            <div className="text-center mt-8">
+              <Link
+                href="/shop"
+                className="bg-(--bg-color) hover:bg-(--bg-hover-color) transition-colors duration-100 cursor-pointer text-sm px-6 py-2 text-white font-semibold rounded"
+              >
+                See more
+              </Link>
             </div>
           </div>
         </div>
