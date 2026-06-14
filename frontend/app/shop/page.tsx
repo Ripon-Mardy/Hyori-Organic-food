@@ -13,6 +13,10 @@ import { Product } from "@/src/types/product.types"; // products type
 import { productCategories } from "@/src/data/ProductCategories"; // product category data
 import { products } from "@/src/data/Product"; /// products data
 import Pagination from "@/components/Pagination";
+import { productCategory } from "@/src/types/productCategory.type";
+
+//========= sortedProduct interface
+interface sortedProductProps {}
 
 const Breadcrumb = () => {
   const [priceRange, setPriceRange] = useState({ min: 0, max: 0 });
@@ -22,17 +26,43 @@ const Breadcrumb = () => {
   const [filteredProducts, setFilterdProducts] = useState<any>([]);
 
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [sortBy, setSortBy] = useState("default");
 
   // --------- popup state ----------
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
+  // ===== sortedProducts ========
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    switch (sortBy) {
+      case "popularity":
+        return b.sold - a.sold;
+
+      case "rating":
+        return b.rating - a.rating;
+
+      case "latest":
+        return (
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+
+      case "lowToHigh":
+        return a.price - b.price;
+
+      case "highToLow":
+        return b.price - a.price;
+
+      default:
+        return 0;
+    }
+  });
+
   // paginaiton state
-  const totalProducts = products.length;
+  const totalProducts = sortedProducts.length;
   const [currentPage, setCurrentPage] = useState(1);
   const productPerPage = 20;
   const totalPages = Math.ceil(products.length / productPerPage);
   const startIndex = (currentPage - 1) * productPerPage;
-  const currentProducts = filteredProducts.slice(
+  const currentProducts = sortedProducts.slice(
     startIndex,
     startIndex + productPerPage,
   );
@@ -342,21 +372,21 @@ const Breadcrumb = () => {
                 <select
                   name=""
                   id=""
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
                   className="text-xs sm:text-sm text-(--text-color) py-2 rounded border border-gray-200 uppercase outline-none"
                 >
-                  <option value="Default Sorting">Default Sorting</option>
-                  <option value="1">sort by popularity</option>
-                  <option value="2">sort by avarage rating</option>
-                  <option value="3">sort by latest</option>
-                  <option value="4">sort by price : low to high</option>
-                  <option value="5">sort by price : High to low</option>
+                  <option value="default">Default Sorting</option>
+                  <option value="popularity">sort by popularity</option>
+                  <option value="rating">sort by avarage rating</option>
+                  <option value="latest">sort by latest</option>
+                  <option value="lowToHight">
+                    sort by price : low to high
+                  </option>
+                  <option value="hightToLow">
+                    sort by price : High to low
+                  </option>
                 </select>
-
-                {/* grid  */}
-                <div className="flex items-center gap-4">
-                  <Grid3x3 className="text-(--text-color) w-5 h-5 cursor-point items-center gap-4er" />
-                  <Grid2x2 className="text-(--text-color) w-5 h-5 cursor-pointer" />
-                </div>
               </div>
             </div>
             <hr className="opacity-10 my-5" />
