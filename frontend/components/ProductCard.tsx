@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Product } from "@/src/types/product.types";
 
 import { Heart, ShoppingCart, Eye, Star } from "lucide-react";
+import Link from "next/link";
 
 interface ProductCardProps {
   product: Product;
@@ -65,9 +66,12 @@ export default function ProductCard({ product }: ProductCardProps) {
         </span>
 
         {/* title */}
-        <h3 className="line-clamp-3 text-base font-semibold text-gray-900 transition hover:text-green-600 cursor-pointer">
+        <Link
+          href={`/product/${product.slug}`}
+          className="line-clamp-3 text-base font-semibold text-gray-900 transition hover:text-green-600 cursor-pointer"
+        >
           {product.name}
-        </h3>
+        </Link>
 
         {/* short desc */}
         <p className="line-clamp-2 text-sm leading-6 text-gray-500">

@@ -15,70 +15,6 @@ import { faStar } from "@fortawesome/free-solid-svg-icons/faStar";
 
 import { products } from "@/src/data/Product";
 
-// --------- best seller data ------------
-const bestSellerData = [
-  {
-    id: 1,
-    name: "Banana",
-    image: banana,
-    price: 169,
-    oldPrice: null,
-    rating: 4,
-    reviews: 1,
-    category: "Fruits",
-  },
-  {
-    id: 2,
-    name: "Fresh Meat",
-    image: freshMeat,
-    price: 158,
-    oldPrice: null,
-    rating: 4,
-    reviews: 1,
-    category: "Meat",
-  },
-  {
-    id: 3,
-    name: "Orange",
-    image: orange,
-    price: 120,
-    oldPrice: null,
-    rating: 3,
-    reviews: 1,
-    category: "Fruits",
-  },
-  {
-    id: 4,
-    name: "Delicious Meat",
-    image: deliciusMeat,
-    price: 150,
-    oldPrice: null,
-    rating: 0,
-    reviews: 0,
-    category: "Meat",
-  },
-  {
-    id: 5,
-    name: "Carrot",
-    image: carrot,
-    price: 188,
-    oldPrice: null,
-    rating: 0,
-    reviews: 0,
-    category: "Vegetables",
-  },
-  {
-    id: 6,
-    name: "Red Apple",
-    image: redApple,
-    price: 155,
-    oldPrice: 167,
-    rating: 3,
-    reviews: 1,
-    category: "Fruits",
-  },
-];
-
 const BestSeller = () => {
   const bestSeller = products.filter((prodcut) => prodcut.bestSeller);
   const hasBestSeller = bestSeller.length > 0;
@@ -113,7 +49,7 @@ const BestSeller = () => {
 
             <div className="grid grid-cols-2 sm:grid-cols-2 items-center justify-center gap-2 sm:gap-6 w-full">
               {hasBestSeller ? (
-                bestSellerData?.slice(0, 6).map((item) => (
+                bestSeller?.slice(0, 6).map((item) => (
                   <div
                     key={item.id}
                     className="bg-white p-2 sm:p-4 rounded-md flex items-center border border-gray-200 gap-2 w-full hover:border hover:border-(--text-green) transition-colors duration-150 cursor-pointer"
@@ -152,7 +88,7 @@ const BestSeller = () => {
 
                         {/* review count */}
                         <span className="text-xs text-gray-500">
-                          ({item.reviews})
+                          ({item.totalReviews})
                         </span>
                       </div>
                       <span className="text-xs sm:text-sm text-(--text-green) font-bold">
@@ -167,14 +103,16 @@ const BestSeller = () => {
                 </div>
               )}
             </div>
-            <div className="text-center mt-8">
-              <Link
-                href="/shop"
-                className="bg-(--bg-color) hover:bg-(--bg-hover-color) transition-colors duration-100 cursor-pointer text-sm px-6 py-2 text-white font-semibold rounded"
-              >
-                See more
-              </Link>
-            </div>
+            {bestSeller.length > 6 && (
+              <div className="text-center mt-8">
+                <Link
+                  href="/shop"
+                  className="bg-(--bg-color) hover:bg-(--bg-hover-color) transition-colors duration-100 cursor-pointer text-sm px-6 py-2 text-white font-semibold rounded"
+                >
+                  See more
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>

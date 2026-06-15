@@ -7,16 +7,12 @@ import { motion } from "motion/react";
 import ProductCard from "@/components/ProductCard";
 
 // icons
-import { Grid3x3, Grid2x2, SlidersHorizontal, X } from "lucide-react";
+import { SlidersHorizontal, X } from "lucide-react";
 
 import { Product } from "@/src/types/product.types"; // products type
 import { productCategories } from "@/src/data/ProductCategories"; // product category data
 import { products } from "@/src/data/Product"; /// products data
 import Pagination from "@/components/Pagination";
-import { productCategory } from "@/src/types/productCategory.type";
-
-//========= sortedProduct interface
-interface sortedProductProps {}
 
 const Breadcrumb = () => {
   const [priceRange, setPriceRange] = useState({ min: 0, max: 0 });
