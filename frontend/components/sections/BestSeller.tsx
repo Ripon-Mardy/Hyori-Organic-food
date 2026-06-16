@@ -2,14 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-// images
-import banana from "@/public/best-seller/apple.webp";
-import freshMeat from "@/public/best-seller/fresh-meat.webp";
-import orange from "@/public/best-seller/orange.webp";
-import deliciusMeat from "@/public/best-seller/meat.webp";
-import carrot from "@/public/best-seller/carrot.webp";
-import redApple from "@/public/best-seller/red-apple.webp";
-
 import leftSideImage from "@/public/best-seller/left-side-image.webp";
 import { faStar } from "@fortawesome/free-solid-svg-icons/faStar";
 

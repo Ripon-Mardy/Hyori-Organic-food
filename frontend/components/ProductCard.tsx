@@ -5,7 +5,9 @@ import Image from "next/image";
 import { Product } from "@/src/types/product.types";
 
 import { Heart, ShoppingCart, Eye, Star } from "lucide-react";
+import { faStar } from "@fortawesome/free-solid-svg-icons/faStar";
 import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface ProductCardProps {
   product: Product;
@@ -83,7 +85,17 @@ export default function ProductCard({ product }: ProductCardProps) {
           <div className="flex items-center gap-1 text-yellow-500">
             <Star size={16} fill="currentColor" />
             <span className="text-xs sm:text-sm font-medium">
-              {product.rating}
+              {/* {product.rating} */}
+              {[...Array(5)].map((_, index) => {
+                const totalRating = Math.floor(product.rating);
+                return (
+                  <FontAwesomeIcon
+                    icon={faStar}
+                    key={index}
+                    className={`text-xs ${index < totalRating ? "text-yellow-500" : "text-gray-300"}`}
+                  />
+                );
+              })}
             </span>
           </div>
 
