@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useParams, notFound } from "next/navigation";
 import Image from "next/image";
 
 import productImage1 from "@/public/products/product1.webp";
@@ -10,6 +10,7 @@ import { Heart } from "lucide-react";
 
 import RelatedProducts from "@/components/RelatedProducts";
 import { reviews } from "@/src/data/Reviews";
+import { products } from "@/src/data/Product";
 
 const tabs = [
   {
@@ -24,9 +25,16 @@ const tabs = [
 
 const page = () => {
   const pathname = usePathname();
+  const params = useParams();
   const paths = pathname.split("/").filter(Boolean);
 
   const [activeTab, setActiveTab] = useState("description");
+
+  const slug = params.slug;
+
+  // ======== get single product ===========
+  const product = products.find((item) => item.slug === slug);
+  if (!product) return notFound();
 
   return (
     <div>
@@ -69,43 +77,40 @@ const page = () => {
           {/* ==== image ===  */}
           <div className="w-100 mx-auto rounded-2xl overflow-hidden">
             <Image
-              src={productImage1}
+              src={product.image}
               width={100}
               height={100}
               className="w-full object-cover"
               layout="responsive"
-              alt="product imge"
+              alt={product?.name}
             />
           </div>
           {/* === product right side ===  */}
           <div className="space-y-2">
             <div className="flex items-center justify-between gap-2 flex-wrap">
               <span className="text-base tracking-widest text-(--text-green) font-semibold">
-                Butter & Eggs
+                {product.brand}
               </span>
               <Heart className="w-5 h-5 cursor-pointer" />
             </div>
 
             <h2 className="text-xl sm:text-3xl font-semibold text-(--heading-color)">
-              Grouped Product
+              {product?.name}
             </h2>
 
             <p className="text-(--text-color) text-sm sm:text-base leading-7">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat
-              cupidatat non proident, sunt in culpa qui officia mollit anim id
-              est laborum. Sed ut perspiciatis unde omnis iste natus error sit
-              voluptatem accusantium doloremque laudantium, totam rem aperiam,
-              eaque ipsa quae ab illo inventor. Nemo enim ipsam voluptatem quia
-              voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
-              magni dolores eos qui ratione voluptatem
+              {product?.description}
             </p>
 
-            <span className="text-xl font-bold text-(--text-green)">
-              $ 150.00
-            </span>
+            <div className="space-x-4">
+              <span className="text-xl font-bold text-(--text-green)">
+                ${product.discountPrice}
+              </span>
+              <span className="text-sm font-bold text-(--text-color) line-through">
+                ${product.price}
+              </span>
+            </div>
+
             <div className="flex flex-col items-start gap-2 mt-2">
               <button className="bg-(--bg-color) px-8 py-3 rounded hover:bg-(--bg-hover-color) transition-colors duration-100 cursor-pointer min-w-56 text-white font-semibold text-sm">
                 Add To Cart
@@ -142,11 +147,11 @@ const page = () => {
                   Product Description
                 </h3>
 
-                <div className="flex flex-col sm:flex-row items-start justify-center gap-4">
-                  <div className="w-40 mx-auto sm:w-full">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="w-20 mx-auto sm:w-full basis-2/12">
                     <Image
-                      src={productImage1}
-                      alt="product image"
+                      src={product?.image}
+                      alt={product.name}
                       width={100}
                       height={100}
                       className="w-full object-cover"
@@ -154,20 +159,7 @@ const page = () => {
                     />
                   </div>
                   <p className="text-(--text-color) leading-7">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Beatae nulla cum debitis eaque tenetur, adipisci cupiditate
-                    error expedita iste nam nisi dolorum? Ab minus voluptate
-                    quos animi aliquam voluptates eaque corporis dignissimos
-                    ipsum in dolores repellat hic dolorem perferendis nostrum ad
-                    molestias debitis ex, vero magni recusandae. Nemo, cum
-                    exercitationem laborum, illo nobis delectus quam ducimus,
-                    fugit atque rem dolorum labore optio est. Placeat asperiores
-                    accusantium tempora labore architecto, maxime mollitia
-                    molestias, voluptatibus corrupti neque esse veniam,
-                    voluptate voluptatum! Voluptatum hic debitis atque in
-                    aperiam libero illo magnam. Tempore officia unde tempora.
-                    Itaque sapiente at repellendus cupiditate. Illum, tempore
-                    voluptate?
+                    {product.description}
                   </p>
                 </div>
               </div>
