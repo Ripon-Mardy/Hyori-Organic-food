@@ -58,9 +58,12 @@ const BestSeller = () => {
                       />
                     </div>
                     <div className="flex flex-col gap-1">
-                      <h2 className="text-sm sm:text-base text-(--heading-color) font-semibold">
+                      <Link
+                        href={`/product/${item?.slug}`}
+                        className="text-sm sm:text-base text-(--heading-color) font-semibold"
+                      >
                         {item.name}
-                      </h2>
+                      </Link>
                       {/* rating  */}
                       <div className="flex items-center gap-3">
                         {/* stars */}

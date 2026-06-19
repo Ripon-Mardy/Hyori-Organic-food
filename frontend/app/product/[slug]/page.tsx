@@ -4,8 +4,6 @@ import Link from "next/link";
 import { usePathname, useParams, notFound } from "next/navigation";
 import Image from "next/image";
 
-import productImage1 from "@/public/products/product1.webp";
-
 import { Heart } from "lucide-react";
 
 import RelatedProducts from "@/components/RelatedProducts";
