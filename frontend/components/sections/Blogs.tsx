@@ -5,6 +5,7 @@ import { blogsData } from "@/src/data/Blogs";
 
 // icons
 import { CalendarDays, MessageCircle, ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 const Blogs = () => {
   return (
@@ -66,10 +67,13 @@ const Blogs = () => {
 
                   {/* --- button ------  */}
                   <div className="flex items-center justify-center">
-                    <button className="group flex items-center justify-center gap-1 bg-(--bg-color) px-6 py-2 text-xs sm:text-sm rounded cursor-pointer text-white font-semibold hover:bg-(--bg-hover-color) transition-all duration-100 ease-in-out">
+                    <Link
+                      href={`/blogs/${blog.slug}`}
+                      className="group flex items-center justify-center gap-1 bg-(--bg-color) px-6 py-2 text-xs sm:text-sm rounded cursor-pointer text-white font-semibold hover:bg-(--bg-hover-color) transition-all duration-100 ease-in-out"
+                    >
                       Read More
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-all duration-200 ease-in-out" />
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>
