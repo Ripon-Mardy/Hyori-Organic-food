@@ -4,7 +4,7 @@ import React, { useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion, AnimatePresence } from "motion/react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 
 import { productCategories } from "@/src/data/ProductCategories"; // product category data
@@ -36,6 +36,7 @@ import {
 import AuthModel from "@/components/auth/AuthModel";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { openCart } from "@/store/cartSlice"; //open cart from redux cartslice
+import { RootState } from "@/store/store";
 
 // menus
 const menus = [
@@ -66,6 +67,8 @@ const menus = [
   },
 ];
 const Header = () => {
+  const { items } = useSelector((state: RootState) => state.cart);
+
   const [selectCategoryValue, setSelectCategoryValue] =
     useState("Select a Category");
 
@@ -274,7 +277,7 @@ const Header = () => {
             <Handbag className="w-5 h-5  text-(--text-color)" />
             {/* show number  */}
             <span className="absolute -right-1 top-3 text-xs bg-(--bg-color) rounded-full w-4 text-white flex items-center justify-center font-semibold">
-              0
+              {items.length}
             </span>
           </div>
         </div>
@@ -364,7 +367,7 @@ const Header = () => {
                   <Handbag className="w-5 h-5  text-(--text-color)" />
                   {/* show number  */}
                   <span className="absolute -right-1 top-3 text-xs bg-(--bg-color) rounded-full w-4 text-white flex items-center justify-center font-semibold">
-                    0
+                    {items.length}
                   </span>
                 </div>
               </div>

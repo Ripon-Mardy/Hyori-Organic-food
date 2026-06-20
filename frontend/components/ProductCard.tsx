@@ -9,11 +9,16 @@ import { faStar } from "@fortawesome/free-solid-svg-icons/faStar";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import { openCart } from "@/store/cartSlice";
+import { useDispatch } from "react-redux";
+import { addToCart } from "@/store/cartSlice";
+
 interface ProductCardProps {
   product: Product;
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const dispatch = useDispatch();
   return (
     <div className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white transition-all duration-300 hover:shadow-xl">
       {/* ===== TOP BADGES ===== */}
@@ -132,6 +137,9 @@ export default function ProductCard({ product }: ProductCardProps) {
 
         {/* button */}
         <button
+          onClick={() => {
+            dispatch(addToCart(product));
+          }}
           disabled={!product.isStock}
           className={`flex w-full items-center justify-center gap-2 rounded-xl py-2 sm:py-3 text-xs font-semibold transition-all duration-300 cursor-pointer ${
             product.isStock
