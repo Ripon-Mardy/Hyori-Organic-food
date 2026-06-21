@@ -301,7 +301,7 @@ const Header = () => {
         <div className="flex items-center justify-center gap-6">
           <Link href={"/wishlist"} className="relative cursor-pointer">
             <Heart className="w-5 h-5  text-(--text-color)" />
-            {/* show number  */}
+            {/* ====== show number ===========  */}
             <span className="absolute -right-1 top-3 text-xs bg-(--bg-color) rounded-full w-4 text-white flex items-center justify-center font-semibold">
               0
             </span>
