@@ -4,6 +4,7 @@ import React, { useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion, AnimatePresence } from "motion/react";
+import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 
@@ -67,6 +68,8 @@ const menus = [
   },
 ];
 const Header = () => {
+  const router = useRouter();
+
   const { items } = useSelector((state: RootState) => state.cart);
 
   const [selectCategoryValue, setSelectCategoryValue] =
@@ -75,6 +78,7 @@ const Header = () => {
   // ----- search input ----------
   const [categoryValue, setCategoryValue] = useState("");
   const [productValue, setProductValue] = useState("");
+  const [productSlug, setProductSlug] = useState("");
 
   // --------- popup state -------------
   const [openDepartmentsPopup, setOpenDepartmentsPopup] = useState(false);
@@ -86,7 +90,7 @@ const Header = () => {
   const disPatch = useDispatch(); // import dispatch from redux
 
   // dropdown ref
-  const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const dropdownRef = useRef<HTMLFormElement | null>(null);
   const departmentRef = useRef<HTMLDivElement>(null);
   const productPopupRef = useRef<HTMLDivElement>(null);
 
@@ -132,7 +136,8 @@ const Header = () => {
         </Link>
 
         {/* ======= search category  =========  */}
-        <div
+        <form
+          action={"#"}
           ref={dropdownRef}
           className="relative flex items-center gap-5 border border-gray-200 rounded-2xl w-full max-w-2xl"
         >
@@ -199,6 +204,7 @@ const Header = () => {
               }}
               className="w-full outline-none"
               placeholder="Search product..."
+              required
             />
 
             {/* ------------ product items popup -----------  */}
@@ -208,6 +214,11 @@ const Header = () => {
                   <div className="space-y-4">
                     {filterdProducts.map((product) => (
                       <div
+                        onClick={() => {
+                          (setProductValue(product.name),
+                            setShowProductPopup(false));
+                          setProductSlug(product.slug);
+                        }}
                         key={product?.id}
                         className="flex gap-2 cursor-pointer"
                       >
@@ -245,10 +256,17 @@ const Header = () => {
           </div>
 
           {/* buton  */}
-          <button className="bg-(--bg-color) hover:bg-(--bg-hover-color) transition-all duration-100 text-sm px-10 text-white py-2 rounded-2xl font-semibold cursor-pointer">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              router.push(`/product/${productSlug}`);
+            }}
+            className="bg-(--bg-color) hover:bg-(--bg-hover-color) transition-all duration-100 text-sm px-10 text-white py-2 rounded-2xl font-semibold cursor-pointer"
+          >
             Search
           </button>
-        </div>
+        </form>
 
         {/* ==== cart =========  */}
         <div className="flex items-center justify-center gap-4">
