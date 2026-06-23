@@ -1,7 +1,8 @@
 "use client";
 import React, { ReactNode } from "react";
 import { Provider } from "react-redux";
-import { store } from "@/store/store";
+import { store, persistor } from "@/store/store";
+import { PersistGate } from "redux-persist/integration/react";
 import Cart from "@/components/Cart";
 
 interface ReduxProvidersProps {
@@ -11,7 +12,9 @@ interface ReduxProvidersProps {
 const ReduxProviders = ({ children }: ReduxProvidersProps) => {
   return (
     <Provider store={store}>
-      {children}
+      <PersistGate loading={null} persistor={persistor}>
+        {children}
+      </PersistGate>
       <Cart />
     </Provider>
   );
