@@ -13,6 +13,7 @@ import {
   decreaseQuantity,
 } from "@/store/cartSlice"; //close cart function from cartslice
 import { RootState } from "@/store/store";
+import Link from "next/link";
 
 const Cart = () => {
   const disPatch = useDispatch();
@@ -131,13 +132,17 @@ const Cart = () => {
                     <div className="space-y-3 mt-5">
                       <button
                         type="submit"
-                        className="w-full bg-(--bg-color) hover:bg-(--bg-hover-color) transition-colors duration-150 py-2 font-semibold text-sm rounded-md cursor-pointer text-white"
+                        className="w-full bg-(--bg-color) hover:bg-(--bg-hover-color) transition-colors duration-150 py-3 font-semibold text-sm rounded-md cursor-pointer text-white"
                       >
                         View Cart
                       </button>
-                      <button className="w-full bg-(--bg-hover-color) hover:bg-(--bg-color) transition-colors duration-150 py-2 font-semibold text-sm rounded-md text-white">
+                      <Link
+                        href={"/checkout"}
+                        onClick={() => disPatch(closeCart())}
+                        className="w-full inline-block text-center bg-(--bg-hover-color) hover:bg-(--bg-color) transition-colors duration-150 py-3 font-semibold text-sm rounded-md text-white"
+                      >
                         Checkout
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 )}
