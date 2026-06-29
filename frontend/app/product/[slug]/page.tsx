@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname, useParams, notFound } from "next/navigation";
 import Image from "next/image";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 import { Heart } from "lucide-react";
 
@@ -22,6 +24,9 @@ const tabs = [
 ];
 
 const page = () => {
+  const dispatch = useDispatch();
+  const wishlist = useSelector((state: RootState) => state.wishlist.items);
+
   const pathname = usePathname();
   const params = useParams();
   const paths = pathname.split("/").filter(Boolean);
