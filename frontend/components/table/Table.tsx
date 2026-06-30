@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { StaticImageData } from "next/image";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 interface Column {
   key: string;
@@ -20,6 +22,8 @@ interface tableProps {
 }
 
 const Table = ({ columns, wishlist }: tableProps) => {
+  const wishlistItem = useSelector((state: RootState) => state.wishlist.items);
+  console.log("item of wishlist", wishlistItem);
   return (
     <div className="overflow-x-auto rounded-xl overflow-hidden">
       <table className="w-full text-left">
@@ -37,8 +41,8 @@ const Table = ({ columns, wishlist }: tableProps) => {
         </thead>
 
         <tbody className="w-full">
-          {wishlist.length > 0 ? (
-            wishlist.map((list) => (
+          {wishlistItem.length > 0 ? (
+            wishlistItem.map((list) => (
               <tr key={list?.id} className="border border-gray-200">
                 <td className="px-2 sm:px-5 py-4 text-xs sm:text-sm font-medium text-(--heading-color)">
                   <div className="w-10 sm:w-16 h-10 sm:h-16 rounded-xl overflow-hidden">
@@ -60,12 +64,12 @@ const Table = ({ columns, wishlist }: tableProps) => {
                 </td>
                 <td
                   className={`px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium ${
-                    list.status === "In Stock"
+                    list.isStock
                       ? " text-green-700 font-semibold"
                       : " text-red-700"
                   }`}
                 >
-                  {list?.status}
+                  {list?.stock}
                 </td>
                 <td className="px-2 sm:px-5 py-4 text-xs sm:text-sm">Remove</td>
               </tr>

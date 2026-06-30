@@ -11,6 +11,7 @@ import { Heart } from "lucide-react";
 import RelatedProducts from "@/components/RelatedProducts";
 import { reviews } from "@/src/data/Reviews";
 import { products } from "@/src/data/Product";
+import { toggleWishlist } from "@/store/features/wishlistSlice";
 
 const tabs = [
   {
@@ -26,6 +27,7 @@ const tabs = [
 const page = () => {
   const dispatch = useDispatch();
   const wishlist = useSelector((state: RootState) => state.wishlist.items);
+  console.log("wishlist items", wishlist);
 
   const pathname = usePathname();
   const params = useParams();
@@ -38,6 +40,8 @@ const page = () => {
   // ======== get single product ===========
   const product = products.find((item) => item.slug === slug);
   if (!product) return notFound();
+
+  const isWishlist = wishlist.some((item) => item.id === product?.id);
 
   return (
     <div>
@@ -94,7 +98,10 @@ const page = () => {
               <span className="text-base tracking-widest text-(--text-green) font-semibold">
                 {product.brand}
               </span>
-              <Heart className="w-5 h-5 cursor-pointer" />
+              <Heart
+                onClick={() => dispatch(toggleWishlist(product))}
+                className={`w-5 h-5 cursor-pointer  ${isWishlist ? "fill-red-500 text-red-500" : ""}`}
+              />
             </div>
 
             <h2 className="text-xl sm:text-3xl font-semibold text-(--heading-color)">

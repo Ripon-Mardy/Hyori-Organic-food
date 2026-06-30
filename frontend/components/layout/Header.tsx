@@ -71,6 +71,9 @@ const Header = () => {
   const router = useRouter();
 
   const { items } = useSelector((state: RootState) => state.cart);
+  const wishlistCount = useSelector(
+    (state: RootState) => state.wishlist.items.length,
+  );
 
   const [selectCategoryValue, setSelectCategoryValue] =
     useState("Select a Category");
@@ -284,7 +287,7 @@ const Header = () => {
             <Heart className="w-5 h-5  text-(--text-color)" />
             {/* show number  */}
             <span className="absolute -right-1 top-3 text-xs bg-(--bg-color) rounded-full w-4 text-white flex items-center justify-center font-semibold">
-              0
+              {wishlistCount}
             </span>
           </Link>
           <div
