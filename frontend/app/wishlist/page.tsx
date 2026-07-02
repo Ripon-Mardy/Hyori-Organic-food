@@ -1,11 +1,7 @@
 "use client";
-import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Table from "@/components/table/Table";
-
-// product image
-import productImage from "@/public/products/product1.webp";
 
 // columns data
 const columns = [
@@ -28,44 +24,6 @@ const columns = [
   {
     key: "action",
     label: "Action",
-  },
-];
-// wishlist
-const wishlist = [
-  {
-    id: 1,
-    name: "Fresh Mango",
-    price: 12.99,
-    status: "In Stock",
-    image: productImage,
-  },
-  {
-    id: 2,
-    name: "Organic Apple",
-    price: 8.5,
-    status: "In Stock",
-    image: productImage,
-  },
-  {
-    id: 3,
-    name: "Banana Pack",
-    price: 5.25,
-    status: "Out of Stock",
-    image: productImage,
-  },
-  {
-    id: 4,
-    name: "Orange Juice",
-    price: 15,
-    status: "Low Stock",
-    image: productImage,
-  },
-  {
-    id: 5,
-    name: "Pineapple",
-    price: 10.75,
-    status: "In Stock",
-    image: productImage,
   },
 ];
 
@@ -114,7 +72,7 @@ const page = () => {
         </h2>
 
         <div className="mt-8">
-          <Table columns={columns} wishlist={wishlist} />
+          <Table columns={columns} />
         </div>
       </div>
     </section>

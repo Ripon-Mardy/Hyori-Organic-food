@@ -1,29 +1,25 @@
 import Image from "next/image";
-import { StaticImageData } from "next/image";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
+import { removeWishlist } from "@/store/features/wishlistSlice";
 
 interface Column {
   key: string;
   label: string;
 }
 
-interface WishListItem {
-  id: number;
-  name: string;
-  price: number;
-  status: string;
-  image: StaticImageData;
-}
-
 interface tableProps {
   columns: Column[];
-  wishlist: WishListItem[];
 }
 
-const Table = ({ columns, wishlist }: tableProps) => {
+const Table = ({ columns }: tableProps) => {
+  const dispatch = useDispatch();
   const wishlistItem = useSelector((state: RootState) => state.wishlist.items);
-  console.log("item of wishlist", wishlistItem);
+
+  const handleRemoveWishlist = (id: number) => {
+    dispatch(removeWishlist(id));
+  };
+
   return (
     <div className="overflow-x-auto rounded-xl overflow-hidden">
       <table className="w-full text-left">
@@ -71,7 +67,14 @@ const Table = ({ columns, wishlist }: tableProps) => {
                 >
                   {list?.stock}
                 </td>
-                <td className="px-2 sm:px-5 py-4 text-xs sm:text-sm">Remove</td>
+                <td className="px-2 sm:px-5 py-4 text-xs sm:text-sm">
+                  <button
+                    onClick={() => handleRemoveWishlist(list.id)}
+                    className="text-red-600 cursor-pointer"
+                  >
+                    Remove
+                  </button>
+                </td>
               </tr>
             ))
           ) : (
